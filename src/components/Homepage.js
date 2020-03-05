@@ -44,7 +44,31 @@ submitFormHandler = event => {
             <input type="number" min="1" max="6" name="players" ref="players" style={{width: "250px"}}/>
             <button> Submit </button>
             </div>
-            <button className="button">  <Link  to="/playgame"> Play Game </Link> </button>
+            <div>
+            <text className="text">Player #1 Username: </text>
+            <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #2 Username: </text>
+            <input type="text" name="user2" ref="user2" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #3 Username: </text>
+            <input type="text" name="user3" ref="user3" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #4 Username: </text>
+            <input type="text" name="user4" ref="user4" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #5 Username: </text>
+            <input type="text" name="user5" ref="user5" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #6 Username: </text>
+            <input type="text" name="user6" ref="user6" style={{width: "235.5px"}}/>
+            </div>
+            <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
           </form>
           <div>
           <button><Link to="/howtoplay">How to Play!</Link></button>
