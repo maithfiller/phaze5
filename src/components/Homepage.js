@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import { Route } from "react-router-dom"
-//import logo from './src/components/phase10.jpg';
-import './components/home.css';
+import { Route, Link } from "react-router-dom"
+import logo from './phase10.jpg';
+import './home.css';
 
 
-class App extends Component {
+class Homepage extends Component {
 state = {
     data: null
   };
@@ -36,7 +36,7 @@ submitFormHandler = event => {
   render() {
     return (
       <div className="homeBackground">
-        {/*<img src={logo}  className="logo" alt="logo" /> */}
+          <img src={logo}  className="logo" alt="logo" />
           <text className="header"> Welcome to Phaze 5</text>
           <form className="form" onSubmit={this.submitFormHandler}>
             <div>
@@ -44,10 +44,34 @@ submitFormHandler = event => {
             <input type="number" min="1" max="6" name="players" ref="players" style={{width: "250px"}}/>
             <button> Submit </button>
             </div>
-              <button className="button" onClick={this.setRedirect}> Play Game </button>
+            <div>
+            <text className="text">Player #1 Username: </text>
+            <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #2 Username: </text>
+            <input type="text" name="user2" ref="user2" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #3 Username: </text>
+            <input type="text" name="user3" ref="user3" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #4 Username: </text>
+            <input type="text" name="user4" ref="user4" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #5 Username: </text>
+            <input type="text" name="user5" ref="user5" style={{width: "235.5px"}}/>
+            </div>
+            <div>
+            <text className="text">Player #6 Username: </text>
+            <input type="text" name="user6" ref="user6" style={{width: "235.5px"}}/>
+            </div>
+            <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
           </form>
           <div>
-          <button>How to Play!</button>
+          <button><Link to="/howtoplay">How to Play!</Link></button>
           </div>
         <p>{this.state.data}</p>
       <div>
@@ -59,4 +83,4 @@ submitFormHandler = event => {
   }
 }
 
-export default App;
+export {Homepage};

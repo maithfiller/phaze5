@@ -1,0 +1,43 @@
+.homeBackground{
+  background-color: #ADD8E6;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-position: center;
+
+}
+
+.logo{
+    height: 10%;
+    width: 10%;
+}
+
+.form{
+  padding-left: 32%;
+  padding-top: 10%;
+}
+
+.text{
+  font-size: 110%;
+  font-weight: bold;
+  font: Sans-Serif;
+}
+
+.header{
+  font-size: 250%;
+  font-weight: bold;
+  color: navy;
+  font-family: Sans-Serif;
+  padding-left: 25%;
+}
+
+.button{
+  color: blue;
+  position: center;
+  width: 50.5%;
+}
+
+.create{
+  position: absolute;
+  bottom: 20px;
+  right: 260px;
+}
