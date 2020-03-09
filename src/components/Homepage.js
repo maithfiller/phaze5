@@ -26,7 +26,7 @@ state = {
     return body;
   };
 
-
+/* to update the numebr of players entered in the textbox*/
 submitFormHandler = event => {
   event.preventDefault();
 

@@ -1,9 +1,10 @@
+/* CSS for the heading text on the how to play page, but background CSS has been moved to index.css */
 .heading{
   font-family: sans-serif;
   margin-left: 40%;
   color: #6495ED;
 }
 
-.background{
+/*.background{
   background-color: #FFF0F5;
-}
+}*/

@@ -1,11 +1,16 @@
-.homeBackground{
+/* CSS for the background has been moved to the index.css page*/
+/*.homeBackground{
   background-color: #ADD8E6;
   background-repeat: no-repeat;
   background-attachment: fixed;
   background-position: center;
 
-}
+}*/
 
+/* CSS for the logo on the homepage, the form portion of the homepage that asks for player names,
+the .text corresponds to the text before the textboxes in the form, .header is for the header on the homepage,
+.button is for the buttons like how to play and play game on the homepage, and .create is for the created by
+text on the homepage */
 .logo{
     height: 10%;
     width: 10%;
