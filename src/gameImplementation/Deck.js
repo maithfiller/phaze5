@@ -28,11 +28,9 @@ export class Deck {
 
   constructor() {
     // array of type Card
-    let deck = [];
+    this.deck = [];
     // array of possible colors
     let colors = ["Blue", "Green", "Yellow", "Red"];
-    // 'top' holds index of Card at the top of the deck
-    let top = 0;
 
     for (let run = 0; run < 8; run ++) {
       for (let i = 1; i <= 12; i ++) {
@@ -50,8 +48,6 @@ export class Deck {
       deck.push(new Card(14, "Black"));
     }
 
-    top = deck.length;
-
     // shuffle the deck
     shuffle();
   }
@@ -59,28 +55,28 @@ export class Deck {
   shuffle () {
 
     // 500 times
-    for (let i = 0; i < 500; i ++) {
+    for (let i = 0; i < 500; i++) {
       // generate two random indices
-      let rand1 = (Math.round(Math.random() * deck.length));
-      let rand2 = (Math.round(Math.random() * deck.length));
+      let rand1 = (Math.ceil(Math.random() * this.deck.length)) - 1;
+      let rand2 = (Math.ceil(Math.random() * this.deck.length)) - 1;
       // save Card at position 'rand1'
-      let temp = deck[rand1];
+      let temp = this.deck[rand1];
       // swap Cards at positions 'rand1' and 'rand2'
-      deck[rand1] = deck[rand2];
-      deck[rand2] = temp;
+      this.deck[rand1] = this.deck[rand2];
+      this.deck[rand2] = temp;
     }
   }
 
-  deal () {
-    if (top == 0) {
+  dealCard () {
+    if (this.deck.length == 0) {
       // add functionality to shuffle discard pile if Cards run out
       console.log("Ran out of cards!\n");
       return NULL;
     }
 
-    Card temp = deck[top - 1];
-    deck[top - 1].dealt = true;
-    top --;
+    let temp = this.deck.pop();
+    // temp holds a Card
+    temp.dealt = true;
     return temp;
   }
 }
