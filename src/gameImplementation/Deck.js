@@ -35,17 +35,17 @@ export class Deck {
     for (let run = 0; run < 8; run ++) {
       for (let i = 1; i <= 12; i ++) {
         // push a new Card of number 'i' and color from 'colors' array
-        deck.push(new Card(i, colors[run % 4]));
+        this.deck.push(new Card(i, colors[run % 4]));
       }
     }
 
     // push 4 skip Cards onto the deck
     for (let i = 0; i < 4; i ++) {
-      deck.push(new Card(13, "Black"));
+      this.deck.push(new Card(13, "Black"));
     }
     // push 8 wild Cards onto the deck
     for (let i = 0; i < 8; i ++) {
-      deck.push(new Card(14, "Black"));
+      this.deck.push(new Card(14, "Black"));
     }
 
     // shuffle the deck

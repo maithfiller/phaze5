@@ -24,6 +24,10 @@ class Player {
 
   }
 
+  get phase() {
+    return this.phase;
+  }
+
   get name() {
     return this.name;
   }
