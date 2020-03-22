@@ -45,6 +45,10 @@ class Player {
     return this.hand.length;
   }
 
+  get points() {
+    return this.points;
+  }
+
   addPhase() {
     this.phase++;
   }
@@ -116,5 +120,27 @@ class Player {
       this.hand[i] = this.hand[min_idx];
       this.hand[min_idx] = temp;
     }
+  }
+
+  addUpPoints() {
+    let number, total = 0;
+
+    for (let i = 0; i < this.hand.length; i++) {
+      number = this.hand[i].number();
+
+      if (number >= 1 && number <= 9) {
+        total += 5;
+      }
+
+      else if (number >= 10 && number <= 12) {
+        total += 10;
+      }
+
+      else if (number == 13 || number == 14) {
+        total += 25;
+      }
+    }
+
+    this.points += total;
   }
 }
