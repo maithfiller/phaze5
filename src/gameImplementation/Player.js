@@ -2,16 +2,19 @@ import Card from './Deck';
 
 class Player {
 
-  constructor (name) {
+  constructor(name) {
     this.name = name;
     // holds Player's current phase
     this.phase = 1;
     // holds Player's hand of cards
     this.hand = [];
     // holds the board of Cards laid down
-    this.board = [];
+    this.board1 = [];
+    this.board2 = [];
     // holds if the Player is skipped for a turn
     this.skipped = false;
+    // player's points
+    this.points = 0;
   }
 
   /* takeTurn() function will allow a Player to
@@ -20,7 +23,7 @@ class Player {
   evaluate if they wish to try to complete a phase
   (must be their current phase). Lastly, a Player
   will choose a card from their hand to discard */
-  takeTurn (deck, discard_pile) {
+  takeTurn(deck, discard_pile) {
 
   }
 
@@ -38,9 +41,40 @@ class Player {
     return temp;
   }
 
-  draw(decc, discard_pile, choice){
+  get handSize() {
+    return this.hand.length;
+  }
+
+  addPhase() {
+    this.phase++;
+  }
+
+  moveCardsToBoard1(cardsToMove) {
+    for (let i = 0; i < cardsToMove.length; i++) {
+      this.board1.push(this.hand.pop(cardsToMove[i]));
+    }
+  }
+
+  moveCardsToBoard2(cardsToMove) {
+    for (let i = 0; i < cardsToMove.length; i++) {
+      this.board2.push(this.hand.pop(cardsToMove[i]));
+    }
+  }
+
+  draw(decc, discard_pile, choice) {
     // temp is Card on top of discard discard_pile
-    let temp = discard_pile.pop();
+    let temp;
+
+    if (decc.length === 0) {
+      temp = discard_pile.pop();
+      // shuffle the discard_pile
+      // make deck = discard_pile
+      // discard_pile = empty array
+      discard_pile.push(temp);
+    }
+
+    temp = discard_pile.pop();
+
     // if temp is a skip
     if (temp.number == 13) {
       // put temp back in the discard_pile
@@ -81,6 +115,6 @@ class Player {
       temp = this.hand[i];
       this.hand[i] = this.hand[min_idx];
       this.hand[min_idx] = temp;
+    }
   }
-}
 }
