@@ -54,13 +54,15 @@ class Player {
   }
 
   moveCardsToBoard1(cardsToMove) {
-    for (let i = 0; i < cardsToMove.length; i++) {
+    cardsToMove.sort();
+    for (let i = cardsToMove.length - 1; i >= 0; i--) {
       this.board1.push(this.hand.pop(cardsToMove[i]));
     }
   }
 
   moveCardsToBoard2(cardsToMove) {
-    for (let i = 0; i < cardsToMove.length; i++) {
+    cardsToMove.sort();
+    for (let i = cardsToMove.length - 1; i >= 0; i--) {
       this.board2.push(this.hand.pop(cardsToMove[i]));
     }
   }
