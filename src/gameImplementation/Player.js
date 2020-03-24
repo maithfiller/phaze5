@@ -67,6 +67,10 @@ class Player {
     }
   }
 
+  isBoardEmpty() {
+    return this.board1.length == 0 && this.board2.length == 0;
+  }
+
   draw(decc, discard_pile, choice) {
     // temp is Card on top of discard discard_pile
     let temp;
@@ -146,13 +150,13 @@ class Player {
     this.points += total;
   }
 
-  showBoards(){
+  showBoards() {
     console.log(this.name + "'s" + " boards:");
 
     // printing board 1
     let printStr = " ";
     for (let i = 0; i < this.board1.length; i++) {
-       printStr += "-----  "
+      printStr += "-----  "
     }
     console.log(printStr)
     printStr = ""; // empty print string
@@ -181,7 +185,7 @@ class Player {
     // printing board 2
     printStr = " ";
     for (let i = 0; i < this.board2.length; i++) {
-       printStr += "-----  "
+      printStr += "-----  "
     }
     console.log(printStr)
     printStr = ""; // empty print string
@@ -212,7 +216,7 @@ class Player {
     console.log(this.name + "'s" + " hand:");
     let printStr = " ";
     for (let i = 0; i < this.hand.length; i++) {
-       printStr += "-----  "
+      printStr += "-----  "
     }
     console.log(printStr)
     printStr = ""; // empty print string
@@ -239,10 +243,10 @@ class Player {
     console.log(printStr)
   }
 
-dropCard(index) {
- // removes one item from the hand array at specified index
- let temp = this.hand.splice(index, 1);
- return temp;
-}
+  dropCard(index) {
+    // removes one item from the hand array at specified index
+    let temp = this.hand.splice(index, 1);
+    return temp;
+  }
 
 }
