@@ -49,6 +49,14 @@ class Player {
     return this.points;
   }
 
+  get board1() {
+    return this.board1;
+  }
+
+  get board2() {
+    return this.board2;
+  }
+
   addPhase() {
     this.phase++;
   }
@@ -150,97 +158,54 @@ class Player {
     this.points += total;
   }
 
-  showBoards() {
-    console.log(this.name + "'s" + " boards:");
+  clearBoard() {
+    // clear both boards of a player
+    this.board1 = [];
+    this.board2 = [];
+  }
+
+  clearHand() {
+    // clear a player's hand
+    this.hand = [];
+  }
+
+  showBoards(){
+    console.log(this.name + "'s" + " board:");
 
     // printing board 1
-    let printStr = " ";
-    for (let i = 0; i < this.board1.length; i++) {
-      printStr += "-----  "
-    }
-    console.log(printStr)
-    printStr = ""; // empty print string
-    for (let i = 0; i < this.board1.length; i++) {
-      printStr += "|     |"
-    }
-    console.log(printStr)
-    printStr = ""; // empty print string
+    let printStr = "";
     for (let i = 0; i < this.board1.length; i++) {
       printStr += "|  "
       printStr += this.board1[i].number
       printStr += "  |"
     }
     console.log(printStr)
-    printStr = ""; // empty out print string
-    for (let i = 0; i < this.board1.length; i++) {
-      printStr += "|     |"
-    }
-    console.log(printStr)
-    printStr = " "; // empty out print string
-    for (let i = 0; i < this.board1.length; i++) {
-      printStr += "-----  "
-    }
-    console.log(printStr)
 
     // printing board 2
-    printStr = " ";
-    for (let i = 0; i < this.board2.length; i++) {
-      printStr += "-----  "
-    }
-    console.log(printStr)
-    printStr = ""; // empty print string
-    for (let i = 0; i < this.board2.length; i++) {
-      printStr += "|     |"
-    }
-    console.log(printStr)
-    printStr = ""; // empty print string
+    printStr = "";
     for (let i = 0; i < this.board2.length; i++) {
       printStr += "|  "
       printStr += this.board2[i].number
       printStr += "  |"
     }
     console.log(printStr)
-    printStr = ""; // empty out print string
-    for (let i = 0; i < this.board2.length; i++) {
-      printStr += "|     |"
-    }
-    console.log(printStr)
-    printStr = " "; // empty out print string
-    for (let i = 0; i < this.board2.length; i++) {
-      printStr += "-----  "
-    }
-    console.log(printStr)
   }
 
   showHand() {
     console.log(this.name + "'s" + " hand:");
-    let printStr = " ";
-    for (let i = 0; i < this.hand.length; i++) {
-      printStr += "-----  "
-    }
-    console.log(printStr)
-    printStr = ""; // empty print string
-    for (let i = 0; i < this.hand.length; i++) {
-      printStr += "|     |"
-    }
-    console.log(printStr)
-    printStr = ""; // empty print string
+
+    let printStr = "";
     for (let i = 0; i < this.hand.length; i++) {
       printStr += "|  "
       printStr += this.hand[i].number
       printStr += "  |"
     }
     console.log(printStr)
-    printStr = ""; // empty out print string
-    for (let i = 0; i < this.hand.length; i++) {
-      printStr += "|     |"
-    }
-    console.log(printStr)
-    printStr = " "; // empty out print string
-    for (let i = 0; i < this.hand.length; i++) {
-      printStr += "-----  "
-    }
-    console.log(printStr)
+
+  }
+
+  makeSkipTrue() {
+    this.skipped = true;
   }
 
   dropCard(index) {
