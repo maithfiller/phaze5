@@ -65,13 +65,16 @@ export class Deck {
 
   shuffle() {
 
+    let rand1, rand2l;
+    let temp;
+
     // 500 times
     for (let i = 0; i < 500; i++) {
       // generate two random indices
-      let rand1 = (Math.ceil(Math.random() * this.deck.length)) - 1;
-      let rand2 = (Math.ceil(Math.random() * this.deck.length)) - 1;
+      rand1 = (Math.ceil(Math.random() * this.deck.length)) - 1;
+      rand2 = (Math.ceil(Math.random() * this.deck.length)) - 1;
       // save Card at position 'rand1'
-      let temp = this.deck[rand1];
+      temp = this.deck[rand1];
       // swap Cards at positions 'rand1' and 'rand2'
       this.deck[rand1] = this.deck[rand2];
       this.deck[rand2] = temp;

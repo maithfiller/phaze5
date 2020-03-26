@@ -70,31 +70,46 @@ class Player {
   }
 
   draw(decc, discard_pile, choice) {
-    // temp is Card on top of discard discard_pile
-    let temp;
 
-    if (decc.length === 0) {
-      temp = discard_pile.pop();
-      // shuffle the discard_pile
-      // make deck = discard_pile
-      // discard_pile = empty array
-      discard_pile.push(temp);
+    let temp1, temp2;
+
+    // if we run out of cards to draw from decc
+    if (decc.length == 0) {
+      // save top card in the discard pile
+      temp1 = discard_pile.pop();
+
+      // push all cards from discard pile back into decc
+      while (discard_pile.length > 0) {
+        decc.push(discard_pile.pop());
+      }
+
+      // swap two random cards 500 times
+      for (let i = 0; i < 500; i++) {
+        // generate two random indices
+        let rand1 = (Math.ceil(Math.random() * decc.length)) - 1;
+        let rand2 = (Math.ceil(Math.random() * decc.length)) - 1;
+        // save Card at position 'rand1'
+        temp2 = decc[rand1];
+        // swap Cards at positions 'rand1' and 'rand2'
+        decc[rand1] = decc[rand2];
+        decc[rand2] = temp2;
+      }
     }
 
-    temp = discard_pile.pop();
+    temp1 = discard_pile.pop();
 
-    // if temp is a skip
-    if (temp.number == 13) {
-      // put temp back in the discard_pile
-      discard_pile.push(temp);
+    // if temp1 is a skip
+    if (temp1.number() == 13) {
+      // put temp1 back in the discard_pile
+      discard_pile.push(temp1);
       // ignore user choice, user must draw from deck
       this.hand.push(decc.dealCard());
       return;
     }
-    // else, temp is not a skip
+    // else, temp1 is not a skip
     else {
-      // put temp card back on the discard_pile
-      discard_pile.push(temp);
+      // put temp1 card back on the discard_pile
+      discard_pile.push(temp1);
       // if choice is 1, draw from deck
       if (choice == 1) {
         this.hand.push(decc.pop());
@@ -105,7 +120,6 @@ class Player {
       }
     }
     // end of draw()
-    return;
   }
 
   sortHand() {
@@ -159,7 +173,7 @@ class Player {
     this.hand = [];
   }
 
-  showBoards(){
+  showBoards() {
     console.log(this.name + "'s" + " board:");
 
     // printing board 1
