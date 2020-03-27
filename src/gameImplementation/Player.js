@@ -173,39 +173,32 @@ class Player {
     this.hand = [];
   }
 
-  showBoards() {
-    console.log(this.name + "'s" + " board:");
-
-    // printing board 1
-    let printStr = "";
+  showBoards(){
+    // board 1
+    let printStr = this.name + "'s" + " boards: ";
     for (let i = 0; i < this.board1.length; i++) {
       printStr += "|  "
       printStr += this.board1[i].number
       printStr += "  |"
     }
-    console.log(printStr)
-
-    // printing board 2
-    printStr = "";
+    // board 2
+    printStr += "  &  ";
     for (let i = 0; i < this.board2.length; i++) {
       printStr += "|  "
       printStr += this.board2[i].number
       printStr += "  |"
     }
-    console.log(printStr)
+    alert(printStr)
   }
 
-  showHand() {
-    console.log(this.name + "'s" + " hand:");
-
-    let printStr = "";
+    showHand() {
+    let printStr = this.name + "'s" + " hand: ";
     for (let i = 0; i < this.hand.length; i++) {
       printStr += "|  "
       printStr += this.hand[i].number
       printStr += "  |"
     }
-    console.log(printStr)
-
+    alert(printStr)
   }
 
   makeSkipTrue() {
