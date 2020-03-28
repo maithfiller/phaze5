@@ -51,17 +51,17 @@ class Player {
     this.phase++;
   }
 
-  moveCardsToBoard1(cardsToMove) {
+  moveCardsToBoard(cardsToMove, origin_array) {
     cardsToMove.sort();
     for (let i = cardsToMove.length - 1; i >= 0; i--) {
-      this.board1.push(this.hand.pop(cardsToMove[i]));
+      this.board1.push(origin_array.splice(cardsToMove[i], 1));
     }
   }
 
-  moveCardsToBoard2(cardsToMove) {
+  moveCardsToBoard2(cardsToMove, origin_array) {
     cardsToMove.sort();
     for (let i = cardsToMove.length - 1; i >= 0; i--) {
-      this.board2.push(this.hand.pop(cardsToMove[i]));
+      this.board2.push(origin_array.splice(cardsToMove[i], 1));
     }
   }
 
