@@ -1,0 +1,10 @@
+.playerbox{
+  border: 1px solid navy;
+  width: 20%;
+}
+
+.pickupbox{
+  border: 1px solid navy;
+  width: 35%;
+  height: 55%;
+}
