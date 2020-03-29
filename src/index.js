@@ -3,7 +3,6 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import Routes from "./routes"
 import { Router } from "react-router-dom"
-import App from './App';
 import * as serviceWorker from './serviceWorker';
 import createHistory from 'history/createBrowserHistory'
 const history = createHistory()
