@@ -17,7 +17,7 @@ class PlayGame {
    isAnyHandEmpty(playerArr){
      for(let i = 0; i < playerArr.length; i++){
        //assumes we have function that returns size of a player's hand
-       if(playerArr[i]._handSize == 0)
+       if(playerArr[i].handSize == 0)
         return true;
      }
    return false;
