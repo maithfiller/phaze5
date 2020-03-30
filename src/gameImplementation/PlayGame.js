@@ -26,51 +26,37 @@ class PlayGame {
   //first array is array of indexes to check
   //second array is hand of cards
   isASet(arr1, arr2){
-    if(arr1[0] != -1){
-        //grab number of the first card
-        let initialNum = arr2[arr1[0]]._number;
-        let i = 1;
-        while(initialNum == 14){
-          let initialNum = arr2[arr1[i]]._number;
-          i++;
-        }
-        for(i; i < arr1.length; i++){
-          //grab number of second card
-          //iterate length of array - 1 times
-          let nextNum = arr2[arr1[i]]._number;
-          //verify each card has the same number as the last
-          //return false if any difference
-          if(initialNum != nextNum){
-            if(nextNum != 14)
-              return false;
-          }
-        }
-        return true;
+   if(arr1[0] != -1){       
+       let initialNum;
+       let counter = 0;
+      for(let i = 0; i < arr1; i++){
+           if(arr2[arr1[i]]._number != 14 && counter == 0){
+              initialNum = arr2[arr1[i]]._number;
+              counter++;          
+           }   
+           if(counter > 0){
+             if(initialNum != arr2[arr1[i]]._number && initialNum != 14){
+               return false;
+             }
+           }
+      }
+       return true;
     }
     else{
-      let initialNum = arr2[0]._number;
-      let i = 1;
-      while(initialNum == 14){
-        let initialNum = arr2[i]._number;
-        i++;
+      let initialNum;
+      let counter = 0;
+      for(let i = 0; i < arr2; i++){
+           if(arr2[i]._number != 14 && counter == 0){
+              initialNum = arr2[i]._number;
+              counter++;          
+           }   
+           if(counter > 0){
+             if(initialNum != arr2[i]._number && initialNum != 14){
+               return false;
+             }
+           }
       }
-      for(i; i < arr2.length; i++){
-        //grab number of second card
-        //iterate length of array - 1 times
-        let nextNum = arr2[i]._number;
-        //verify each card has the same number as the last
-        //return false if any difference
-        let printStr = "Initial Num: " + initialNum + "\n"
-        alert(printStr);
-        let printStr2 = "Next Num: " + nextNum + "\n"
-        alert(printStr2);
-        if(initialNum != nextNum){
-          if(nextNum != 14)
-            return false;
-        }
-      }
-      return true;
-
+       return true;
     }
   }
 
