@@ -213,7 +213,7 @@ class Player {
     let number, total = 0;
 
     for (let i = 0; i < this._hand.length; i++) {
-      number = this._hand[i]._number();
+      number = this._hand[i]._number;
 
       if (number >= 1 && number <= 9) {
         total += 5;
