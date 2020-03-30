@@ -28,7 +28,7 @@ class PlayGame {
   isASet(arr1, arr2){
     if(arr1[0] != -1){
         //grab number of the first card
-        let initialNum = arr2[arr1[1]]._number;
+        let initialNum = arr2[arr1[0]]._number;
         let i = 1;
         while(initialNum == 14){
           let initialNum = arr2[arr1[i]]._number;
