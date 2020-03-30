@@ -209,7 +209,7 @@ class Player {
     // clear a player's hand
     this._hand = [];
   }
-  addUpPoints() {
+  addPoints() {
     let number, total = 0;
 
     for (let i = 0; i < this._hand.length; i++) {
