@@ -450,8 +450,8 @@ class PlayGame {
             playerArr[k].clearHand();
             playerArr[k].clearBoard();
           }
-          let gameDeck = new Deck();
-          let discardPile = [];
+          gameDeck = new Deck();
+          discardPile = [];
           discardPile.push(gameDeck.dealCard());
           for(let p = 0; p < 10; i++){
             for(let k = 0; k < playerArr.length; k++){
