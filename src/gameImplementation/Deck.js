@@ -1,20 +1,26 @@
 class Card {
   // number is 13 for skip and 14 for wild
   constructor(number, color) {
-    this.number = number;
-    this.color = color;
+    this._number = number;
+    this._color = color;
     this.used = false;
     this.dealt = false;
   }
 
   get number() {
-    return this.number;
+    return this._number;
   }
-
+  
+  set number(num){
+    this._number = num; 
+  }
+  
   get color() {
-    return this.color;
+    return this._color;
   }
-
+  set color(c){
+    this._color = c; 
+  }
   get isUsed() {
     return this.used;
   }
@@ -24,7 +30,7 @@ class Card {
   }
 }
 
-export class Deck {
+class Deck {
 
   constructor() {
     // array of type Card
@@ -49,10 +55,18 @@ export class Deck {
     }
 
     // shuffle the deck
-    shuffle();
+    this.shuffle();
   }
 
-  get Card(index) {
+  pop(){
+    return this.deck.pop();
+  }
+  
+  push(x){
+    this.deck.push(x);
+  }
+  
+  Card(index) {
 
     // if index is out of bounds, return null
     if (index < 0 || index >= this.deck.length) {
@@ -64,10 +78,9 @@ export class Deck {
   }
 
   shuffle() {
-
-    let rand1, rand2l;
+    
+    let rand1, rand2;
     let temp;
-
     // 500 times
     for (let i = 0; i < 500; i++) {
       // generate two random indices
@@ -94,5 +107,3 @@ export class Deck {
     return temp;
   }
 }
-
-export default Card;
