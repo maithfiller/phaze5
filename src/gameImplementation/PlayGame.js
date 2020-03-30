@@ -384,7 +384,7 @@ class PlayGame {
                     let alert1 = "Made it in verify if block";
                     alert(alert1);
                     let index = prompt("Enter index of card you wish to discard \n");
-                    let temp = playerArr[i].valueOf(discardChoice);
+                    let temp = playerArr[i].valueOf(index);
                     if(temp._number == 13){
                       let choice = prompt("Enter the player number you want to skip");
                       playerArr[choice - 1].makeSkipTrue();
