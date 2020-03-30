@@ -159,7 +159,7 @@ class Player {
     temp1 = discard_pile.pop();
 
     // if temp1 is a skip
-    if (temp1._number() == 13) {
+    if (temp1._number == 13) {
       // put temp1 back in the discard_pile
       discard_pile.push(temp1);
       // ignore user choice, user must draw from deck
