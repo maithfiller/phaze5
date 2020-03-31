@@ -35,7 +35,7 @@ class PlayGame {
               counter++;          
            }   
            if(counter > 0){
-             if(initialNum != arr2[arr1[i]]._number && initialNum != 14){
+             if(initialNum != arr2[arr1[i]]._number && arr2[arr1[i]]._number != 14){
                return false;
              }
            }
@@ -51,7 +51,7 @@ class PlayGame {
               counter++;          
            }   
            if(counter > 0){
-             if(initialNum != arr2[i]._number && initialNum != 14){
+             if(initialNum != arr2[i]._number && arr2[arr1[i]]._number != 14){
                return false;
              }
            }
