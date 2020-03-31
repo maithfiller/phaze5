@@ -3,7 +3,7 @@ import { Route, Link } from "react-router-dom";
 import {PlayGame} from "./PlayGame";
 import logo from './phase10.jpg';
 import './home.css';
-
+import Modal from '../components/Modal/PlayGameModal';
 
 class Homepage extends Component {
 
@@ -26,7 +26,7 @@ class Homepage extends Component {
 
   constructor(props){
     super(props);
-    this.state = {numplayers: '', p1: '', p2: '', p3: '', p4: '', p5: '', p6: ''};
+    this.state = {numplayers: '', p1: '', p2: '', p3: '', p4: '', p5: '', p6: '', isShowing: false};
     // controlling the state of number of players and the usernames for each player
   }
 
@@ -44,132 +44,141 @@ playGameHandler = event => {
                 //  p4: this.refs.user4.value, p5: this.refs.user5.value, p6: this.refs.user6.value
 }
 
+openModalHandler = () => {
+        this.setState({
+            isShowing: true
+        });
+    }
 
+closeModalHandler = () => {
+        this.setState({
+            isShowing: false
+        });
+    }
 
   render(){
 
     return (
-      <div className="homeBackground">
-          <img src={logo}  className="logo" alt="logo" />
-          <text className="header"> Welcome to Phaze 5</text>
-          <form className="form" onSubmit={this.submitFormHandler}>
-            <div>
-            <text className="text">How many players: </text>
-            <input type="number" min="1" max="6" name="players" ref="players" style={{width: "250px"}}/>
-            <button> Submit </button>
-            </div>
-
-            {this.state.numplayers === '1' &&
-              <div>
-                <text className="text">Player #1 Username: </text>
-                <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
-              <br></br>
-              <form onSubmit={this.playGameHandler}>
-                <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
-                </form>
-                </div>
-            }
-
-            {this.state.numplayers === '2' &&
-              <div>
-                <text className="text">Player #1 Username: </text>
-                <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #2 Username: </text>
-              <input type="text" name="user2" ref="user2" style={{width: "235.5px"}}/>
-            <br></br>
-              <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
-              </div>
-            }
-
-
-            {this.state.numplayers === '3' &&
-              <div>
-                <text className="text">Player #1 Username: </text>
-                <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #2 Username: </text>
-              <input type="text" name="user2" ref="user2" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #3 Username: </text>
-              <input type="text" name="user3" ref="user3" style={{width: "235.5px"}}/>
-            <br></br>
-              <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
-              </div>
-            }
-
-
-            {this.state.numplayers === '4' &&
-              <div>
-                <text className="text">Player #1 Username: </text>
-                <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #2 Username: </text>
-              <input type="text" name="user2" ref="user2" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #3 Username: </text>
-              <input type="text" name="user3" ref="user3" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #4 Username: </text>
-              <input type="text" name="user4" ref="user4" style={{width: "235.5px"}}/>
-            <br></br>
-              <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
-              </div>
-            }
-
-            {this.state.numplayers === '5' &&
-              <div>
-                <text className="text">Player #1 Username: </text>
-                <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #2 Username: </text>
-              <input type="text" name="user2" ref="user2" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #3 Username: </text>
-              <input type="text" name="user3" ref="user3" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #4 Username: </text>
-              <input type="text" name="user4" ref="user4" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #5 Username: </text>
-              <input type="text" name="user5" ref="user5" style={{width: "235.5px"}}/>
-            <br></br>
-              <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
-              </div>
-            }
-
-            {this.state.numplayers === '6' &&
-              <div>
-                <text className="text">Player #1 Username: </text>
-                <input type="text" name="user1" ref="user1" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #2 Username: </text>
-              <input type="text" name="user2" ref="user2" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #3 Username: </text>
-              <input type="text" name="user3" ref="user3" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #4 Username: </text>
-              <input type="text" name="user4" ref="user4" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #5 Username: </text>
-              <input type="text" name="user5" ref="user5" style={{width: "235.5px"}}/>
-            <br></br>
-              <text className="text">Player #6 Username: </text>
-              <input type="text" name="user6" ref="user6" style={{width: "235.5px"}}/>
-            <br></br>
-            <button className="button"> <Link  to="/playgame"> Play Game </Link> </button>
-            </div>
-          }
-
-            </form>
-          <div>
-          <button><Link to="/howtoplay">How to Play!</Link></button>
-          </div>
-        <p>{this.state.data}</p>
       <div>
+
+                { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+
+                <button className="open-modal-btn" onClick={this.openModalHandler}>Play Game</button>
+                <div>
+                <Modal
+                    className="modal"
+                    show={this.state.isShowing}
+                    close={this.closeModalHandler}>
+
+                    <form onSubmit={this.submitFormHandler}>
+                      <div>
+                      <text className="text">How many players: </text>
+                      <input type="number" min="1" max="6" name="players" ref="players" style={{width: "250px"}}/>
+                      <button> Submit </button>
+                      </div>
+
+                      {this.state.numplayers === '1' &&
+                        <div>
+                          <text>Player #1 Username: </text>
+                          <input type="text" name="user1" ref="user1" style={{width: "205px"}}/>
+                          </div>
+                      }
+
+                      {this.state.numplayers === '2' &&
+                        <div>
+                          <text>Player #1 Username: </text>
+                          <input type="text" name="user1" ref="user1" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #2 Username: </text>
+                        <input type="text" name="user2" ref="user2" style={{width: "205px"}}/>
+                        </div>
+                      }
+
+
+                      {this.state.numplayers === '3' &&
+                        <div>
+                          <text>Player #1 Username: </text>
+                          <input type="text" name="user1" ref="user1" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #2 Username: </text>
+                        <input type="text" name="user2" ref="user2" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #3 Username: </text>
+                        <input type="text" name="user3" ref="user3" style={{width: "205px"}}/>
+                        </div>
+                      }
+
+
+                      {this.state.numplayers === '4' &&
+                        <div>
+                          <text>Player #1 Username: </text>
+                          <input type="text" name="user1" ref="user1" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #2 Username: </text>
+                        <input type="text" name="user2" ref="user2" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #3 Username: </text>
+                        <input type="text" name="user3" ref="user3" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #4 Username: </text>
+                        <input type="text" name="user4" ref="user4" style={{width: "205px"}}/>
+                        </div>
+                      }
+
+                      {this.state.numplayers === '5' &&
+                        <div>
+                          <text>Player #1 Username: </text>
+                          <input type="text" name="user1" ref="user1" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #2 Username: </text>
+                        <input type="text" name="user2" ref="user2" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #3 Username: </text>
+                        <input type="text" name="user3" ref="user3" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #4 Username: </text>
+                        <input type="text" name="user4" ref="user4" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #5 Username: </text>
+                        <input type="text" name="user5" ref="user5" style={{width: "205px"}}/>
+                        </div>
+                      }
+
+                      {this.state.numplayers === '6' &&
+                        <div>
+                          <text>Player #1 Username: </text>
+                          <input type="text" name="user1" ref="user1" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #2 Username: </text>
+                        <input type="text" name="user2" ref="user2" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #3 Username: </text>
+                        <input type="text" name="user3" ref="user3" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #4 Username: </text>
+                        <input type="text" name="user4" ref="user4" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #5 Username: </text>
+                        <input type="text" name="user5" ref="user5" style={{width: "205px"}}/>
+                      <br></br>
+                        <text>Player #6 Username: </text>
+                        <input type="text" name="user6" ref="user6" style={{width: "205px"}}/>
+                      </div>
+                    }
+
+                      </form>
+
+                </Modal>
+                </div>
+
+
+          {/*}<img src={logo}  className="logo" alt="logo" />*/}
+
+          <button><Link to="/howtoplay">How to Play!</Link></button>
+
+
       <text className="create"> Created by: Faith Miller, Mackenzie Knight, Tristan Garcia, Eduardo Antonini, and Katie Rombeiro </text>
-      </div>
+
       </div>
 
 

@@ -7,4 +7,11 @@
   border: 1px solid navy;
   width: 35%;
   height: 55%;
+  margin: auto;
+}
+
+.buttonbottom{
+  position: absolute;
+  top: 600px;
+  left: 400px;
 }
