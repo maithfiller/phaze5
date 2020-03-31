@@ -453,7 +453,7 @@ class PlayGame {
           gameDeck = new Deck();
           discardPile = [];
           discardPile.push(gameDeck.dealCard());
-          for(let p = 0; p < 10; i++){
+          for(let p = 0; p < 10; p++){
             for(let k = 0; k < playerArr.length; k++){
               playerArr[k].draw(gameDeck, discardPile, 1)
               }
