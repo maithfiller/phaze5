@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Route, Link } from "react-router-dom";
-import {PlayGame} from "./PlayGame";
-import logo from './phase10.jpg';
+import { Link } from "react-router-dom";
 import './home.css';
 import Modal from '../components/Modal/PlayGameModal';
 
@@ -26,7 +24,14 @@ class Homepage extends Component {
 
   constructor(props){
     super(props);
-    this.state = {numplayers: '', p1: '', p2: '', p3: '', p4: '', p5: '', p6: '', isShowing: false};
+    this.state = {numplayers: '',
+                  p1: '',
+                  p2: '',
+                  p3: '',
+                  p4: '',
+                  p5: '',
+                  p6: '',
+                  isShowing: false};
     // controlling the state of number of players and the usernames for each player
   }
 
@@ -34,6 +39,7 @@ class Homepage extends Component {
 submitFormHandler = event => {
   event.preventDefault();
 this.setState({numplayers: this.refs.players.value});
+console.log(this.refs.players.value);
                 // updating the state of the number of players and each players username
 }
 
@@ -54,17 +60,20 @@ closeModalHandler = () => {
         this.setState({
             isShowing: false
         });
+        this.setState({p1: this.refs.user1.value});
     }
 
   render(){
 
     return (
+
       <div>
 
                 { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Play Game</button>
                 <div>
+                <text className="button"> <button><Link to="/howtoplay">How to Play!</Link></button> </text>
                 <Modal
                     className="modal"
                     show={this.state.isShowing}
@@ -170,13 +179,7 @@ closeModalHandler = () => {
 
                 </Modal>
                 </div>
-
-
           {/*}<img src={logo}  className="logo" alt="logo" />*/}
-
-          <button><Link to="/howtoplay">How to Play!</Link></button>
-
-
       <text className="create"> Created by: Faith Miller, Mackenzie Knight, Tristan Garcia, Eduardo Antonini, and Katie Rombeiro </text>
 
       </div>

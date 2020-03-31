@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Homepage } from "./Homepage"
+
 import './playgame.css';
 import { Button } from '@material-ui/core';
 
