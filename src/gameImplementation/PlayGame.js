@@ -206,7 +206,7 @@ class PlayGame {
                       let temp = prompt("\nCard # " + k + " ");
                       run2.push(temp);
                     }
-                  if(this.isARun(run2) == true){
+                  if(this.isARun(run2,playerArr[i]._hand) == true){
                     playerArr[i].moveCardsToBoard1(set1,playerArr[i]._hand);
                     playerArr[i].moveCardsToBoard2(run2, set1, playerArr[i]._hand);
                     playerArr[i].addPhase();
