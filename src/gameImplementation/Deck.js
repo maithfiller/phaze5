@@ -1,4 +1,4 @@
-class Card {
+export class Card {
   // number is 13 for skip and 14 for wild
   constructor(number, color) {
     this._number = number;
@@ -10,16 +10,16 @@ class Card {
   get number() {
     return this._number;
   }
-  
+
   set number(num){
-    this._number = num; 
+    this._number = num;
   }
-  
+
   get color() {
     return this._color;
   }
   set color(c){
-    this._color = c; 
+    this._color = c;
   }
   get isUsed() {
     return this.used;
@@ -30,7 +30,9 @@ class Card {
   }
 }
 
-class Deck {
+
+
+export class Deck {
 
   constructor() {
     // array of type Card
@@ -61,24 +63,25 @@ class Deck {
   pop(){
     return this.deck.pop();
   }
-  
+
   push(x){
     this.deck.push(x);
   }
-  
-  Card(index) {
+
+  //Card(index) {
 
     // if index is out of bounds, return null
-    if (index < 0 || index >= this.deck.length) {
-      return NULL;
-    }
+    //if (index < 0 || index >= this.deck.length) {
+      //return;
+      // return null
+    //}
 
     // else, return card @ index
-    return this.deck[index];
-  }
+    //return this.deck[index];
+  //}
 
   shuffle() {
-    
+
     let rand1, rand2;
     let temp;
     // 500 times
@@ -98,7 +101,8 @@ class Deck {
     if (this.deck.length == 0) {
       // add functionality to shuffle discard pile if Cards run out
       console.log("Ran out of cards!\n");
-      return NULL;
+      return;
+      //return null
     }
 
     let temp = this.deck.pop();

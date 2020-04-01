@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './home.css';
-import Modal from '../components/Modal/PlayGameModal';
+import Modal1 from '../components/Modal/PlayGameModal';
+import  { Card, Deck }  from '../gameImplementation/Deck.js'
 
 class Homepage extends Component {
 
@@ -74,7 +75,8 @@ closeModalHandler = () => {
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Play Game</button>
                 <div>
                 <text className="button"> <button><Link to="/howtoplay">How to Play!</Link></button> </text>
-                <Modal
+            {/* WHAT IS UPPPPPP THIS IS A COMMENT :) */}
+                <Modal1
                     className="modal"
                     show={this.state.isShowing}
                     close={this.closeModalHandler}>
@@ -177,8 +179,9 @@ closeModalHandler = () => {
 
                       </form>
 
-                </Modal>
+                </Modal1>
                 </div>
+
           {/*}<img src={logo}  className="logo" alt="logo" />*/}
       <text className="create"> Created by: Faith Miller, Mackenzie Knight, Tristan Garcia, Eduardo Antonini, and Katie Rombeiro </text>
 
