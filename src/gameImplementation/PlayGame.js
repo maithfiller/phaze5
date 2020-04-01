@@ -29,7 +29,7 @@ class PlayGame {
    if(arr1[0] != -1){       
        let initialNum;
        let counter = 0;
-      for(let i = 0; i < arr1; i++){
+      for(let i = 0; i < arr1.length; i++){
            if(arr2[arr1[i]]._number != 14 && counter == 0){
               initialNum = arr2[arr1[i]]._number;
               counter++;          
@@ -45,7 +45,7 @@ class PlayGame {
     else{
       let initialNum;
       let counter = 0;
-      for(let i = 0; i < arr2; i++){
+      for(let i = 0; i < arr2.length; i++){
            if(arr2[i]._number != 14 && counter == 0){
               initialNum = arr2[i]._number;
               counter++;          
@@ -69,9 +69,9 @@ class PlayGame {
         //sort array in ascending order
         tempArr.sort(function(a, b){return a - b});
         //same method used in isASet, grab the number of the first card of hand
-        let initialNum = arr2[arr1[0]]._number;
+        let initialNum = tempArr[0];
         for(let i = 1; i < tempArr.length; i++){
-          let nextNum = arr2[arr1[i]]._number;
+          let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
           if(nextNum != (initialNum + 1) && nextNum != 14)
           return false;
@@ -86,9 +86,9 @@ class PlayGame {
         //sort array in ascending order
         tempArr.sort(function(a, b){return a - b});
         //same method used in isASet, grab the number of the first card of hand
-        let initialNum = arr2[0]._number;
+        let initialNum = tempArr[0];
         for(let i = 1; i < tempArr.length; i++){
-          let nextNum = arr2[i]._number;
+          let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
           if(nextNum != (initialNum + 1) && nextNum != 14)
           return false;
