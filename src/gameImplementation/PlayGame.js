@@ -7,13 +7,21 @@ class PlayGame {
    checkPhaze5(playerArr){
      for(let i = 0; i < playerArr.length; i++){
        //assumes we have a get phase() function
-         if(playerArr[i]._phase == 6)
+         if(playerArr[i].phase == 6)
            return true;
       }
      return false;
    }
-
-   //return true if any player's hand is empty, used to tell when round is over
+  checkPhaze2(playerArr){
+     for(let i = 0; i < playerArr.length; i++){
+       //assumes we have a get phase() function
+         if(playerArr[i].phase == 3)
+           return true;
+      }
+     return false;
+   }
+  
+  //return true if any player's hand is empty, used to tell when round is over
    isAnyHandEmpty(playerArr){
      for(let i = 0; i < playerArr.length; i++){
        //assumes we have function that returns size of a player's hand
@@ -25,17 +33,17 @@ class PlayGame {
 
   //first array is array of indexes to check
   //second array is hand of cards
-  isASet(arr1, arr2){
-   if(arr1[0] != -1){       
+  isASet(arr1, arr2){     
+    if(arr1[0] != -1){       
        let initialNum;
        let counter = 0;
       for(let i = 0; i < arr1.length; i++){
-           if(arr2[arr1[i]]._number != 14 && counter == 0){
-              initialNum = arr2[arr1[i]]._number;
+           if(arr2[arr1[i]].number != 14 && counter == 0){
+              initialNum = arr2[arr1[i]].number;
               counter++;          
            }   
            if(counter > 0){
-             if(initialNum != arr2[arr1[i]]._number && arr2[arr1[i]]._number != 14){
+             if(initialNum != arr2[arr1[i]].number && arr2[arr1[i]].number != 14){
                return false;
              }
            }
@@ -51,7 +59,7 @@ class PlayGame {
               counter++;          
            }   
            if(counter > 0){
-             if(initialNum != arr2[i]._number && arr2[arr1[i]]._number != 14){
+             if(initialNum != arr2[i]._number && arr2[i]._number != 14){
                return false;
              }
            }
@@ -65,7 +73,7 @@ class PlayGame {
       let tempArr =[];
       //push each card number into an array to be sorted by
       for(let i = 0; i < arr1.length; i++)
-        tempArr.push(arr2[arr1[i]]._number);
+        tempArr.push(arr2[arr1[i]].number);
         //sort array in ascending order
         tempArr.sort(function(a, b){return a - b});
         //same method used in isASet, grab the number of the first card of hand
@@ -74,7 +82,7 @@ class PlayGame {
           let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
           if(nextNum != (initialNum + i) && nextNum != 14)
-          return false;
+            return false;
         }
       return true;
     }
@@ -91,7 +99,7 @@ class PlayGame {
           let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
           if(nextNum != (initialNum + i) && nextNum != 14)
-          return false;
+            return false;
         }
       return true;
     }
@@ -124,7 +132,7 @@ class PlayGame {
       }
     }
     //game runs until someone reaches phaze 5
-    while(this.checkPhaze5(playerArr) == false){
+    while(this.checkPhaze2(playerArr) == false){
       //iterate through each players turn
       for(let i = 0; i < numPlayers; i++){
         if(this.isAnyHandEmpty(playerArr) == false){
@@ -198,7 +206,7 @@ class PlayGame {
                   let temp = prompt("\nCard # " + k + " ");
                   set1.push(temp);
                 }
-                if(this.isASet(set1, playerArr[i]._hand) == true){
+                if(this.isASet(set1, playerArr[i].hand) == true){
                   let printStr = "Enter your run of 4";
                   alert(printStr);
                     for(let counter = 0; counter < 4; counter++){
@@ -206,7 +214,7 @@ class PlayGame {
                       let temp = prompt("\nCard # " + k + " ");
                       run2.push(temp);
                     }
-                  if(this.isARun(run2,playerArr[i]._hand) == true){
+                  if(this.isARun(run2, playerArr[i]._hand) == true){
                     playerArr[i].moveCardsToBoard1(set1,playerArr[i]._hand);
                     playerArr[i].moveCardsToBoard2(run2, set1, playerArr[i]._hand);
                     playerArr[i].addPhase();
@@ -366,9 +374,6 @@ class PlayGame {
                   }
                   if(this.isARun(foo,hitSet1) == true || this.isASet(foo,hitSet1) == true){
                     playerArr[playerNum - 1].moveCardsToBoard1(index1,playerArr[i]._hand);
-                    playerArr[i].showHand();
-                    let alert1 = "Made it in verify if block";
-                    alert(alert1);
                     let index = prompt("Enter index of card you wish to discard \n");
                     let temp = playerArr[i].valueOf(index);
                     if(temp._number == 13){
@@ -380,7 +385,6 @@ class PlayGame {
                   else{
                     let printStr = "Sorry! That doesn't qualify. Next Player's turn! We in here1\n ";
                     alert(printStr);
-                    playerArr[playerNum - 1].showBoards();
                     let index = prompt("Enter index of card you wish to discard \n");
                     let temp = playerArr[i].valueOf(index);
                     if(temp._number == 13){
@@ -397,8 +401,6 @@ class PlayGame {
                     let k = counter+1;
                     let temp = prompt("\nCard #" + k + " ");
                     let temp2 = playerArr[i].valueOf(temp);
-                    let tempNum = temp2._number;
-                    alert(tempNum);
                     hitSet2.push(temp2);
                     index2.push(temp);
                   }
@@ -425,11 +427,10 @@ class PlayGame {
                     discardPile.push(...(playerArr[i].dropCard(index)));  
                   }
                 }
-              playerArr[playerNum - 1].showBoards();
               }
             }
           }
-          }
+        }
         else{
           //Someone has an empty hand, round is over
           //calculate points for people who still have hands
@@ -458,25 +459,25 @@ class PlayGame {
               playerArr[k].draw(gameDeck, discardPile, 1)
               }
           }
-          break;
+          i = numPlayers - 1;
         }
       }
     }
-    let phaze5Cnt = 0;
+    let phaze2Cnt = 0;
     let playerHolder = [];
     for(let k = 0; k < playerArr.length; k++){
-      if(playerArr[k]._phaze == 6){
-        phaze5Cnt++;
+      if(playerArr[k].phase == 3){
+        phaze2Cnt++;
         playerHolder.push(k);
       }
     }
-    if(phaze5Cnt == 1){
-      let printStr = "Congratulations!! Player " + playerArr[playerHolder[0]]._name + " is the first one to finish Phaze 5, and is our official winner!!";
+    if(phaze2Cnt == 1){
+      let printStr = "Congratulations!! Player " + playerArr[playerHolder[0]].name + " is the first one to finish Phaze 2, and is our official winner!!";
       alert(printStr);
       let printStr2 = "Final Scoreboard: \n";
       for(let k = 0; k < playerArr.length; k++){
         let m = k+1;
-        printStr2 = printStr + "Player " + m + ": " + playerArr[k]._points() + "\n";
+        printStr2 = printStr2 + "Player " + m + ": " + playerArr[k].points + "\n";
       }
       alert(printStr2);
     }
@@ -484,17 +485,17 @@ class PlayGame {
       let printStr = "Final Scoreboard: \n";
       for(let k = 0; k < playerArr.length; k++){
         let m = k+1;
-        printStr = printStr + "Player " + m + ": " + playerArr[k]._points() + "\n";
+        printStr = printStr + "Player " + m + ": " + playerArr[k].points + "\n";
       }
       alert(printStr);
       let printStr2 = "Looks like we have a tie!! The winner will be decided by the one with the least points!\n";
       alert(printStr2);
       let scoreHolder = [];
       for(let k = 0; k < playerHolder.length; k++){
-        scoreHolder.push(playerArr[playerHolder[k]]._points);
+        scoreHolder.push(playerArr[playerHolder[k]].points);
       }
       scoreHolder.sort(function(a, b){return a - b});
-      let printStr3 = "Congratulations!! Player " + playerArr[playerHolder[0]]._name + " is the first one to finish phaze 5 with the least amount of points, and is our official winner!!"
+      let printStr3 = "Congratulations!! Player " + playerArr[playerHolder[0]].name + " is the first one to finish Phaze 2 with the least amount of points, and is our official winner!!"
       alert(printStr3);
     }
   }
