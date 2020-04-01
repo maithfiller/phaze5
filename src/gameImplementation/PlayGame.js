@@ -73,7 +73,7 @@ class PlayGame {
         for(let i = 1; i < tempArr.length; i++){
           let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
-          if(nextNum != (initialNum + 1) && nextNum != 14)
+          if(nextNum != (initialNum + i) && nextNum != 14)
           return false;
         }
       return true;
@@ -90,7 +90,7 @@ class PlayGame {
         for(let i = 1; i < tempArr.length; i++){
           let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
-          if(nextNum != (initialNum + 1) && nextNum != 14)
+          if(nextNum != (initialNum + i) && nextNum != 14)
           return false;
         }
       return true;
