@@ -2,7 +2,8 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './home.css';
 import Modal1 from '../components/Modal/PlayGameModal';
-import  { Card, Deck }  from '../gameImplementation/Deck.js'
+import Modal2 from '../components/Modal/PickUpModal';
+
 
 class Homepage extends Component {
 
@@ -29,9 +30,9 @@ class Homepage extends Component {
                   p1: '',
                   p2: '',
                   p3: '',
-                  p4: '',
-                  p5: '',
-                  p6: '',
+                  //p4: '',
+                  //p5: '',
+                  //p6: '',
                   isShowing: false};
     // controlling the state of number of players and the usernames for each player
   }
@@ -46,7 +47,7 @@ console.log(this.refs.players.value);
 
 playGameHandler = event => {
   event.preventDefault();
-  this.setState({p1: this.refs.user1.value});
+  this.setState({p1: this.refs.user1.value, p2: this.refs.user2.value, p3: this.refs.user3.value});
   //p2: this.refs.user2.value, p3: this.refs.user3.value,
                 //  p4: this.refs.user4.value, p5: this.refs.user5.value, p6: this.refs.user6.value
 }
@@ -57,12 +58,25 @@ openModalHandler = () => {
         });
     }
 
+    openModal2Handler = () => {
+            this.setState({
+                isShowing2: true
+            });
+        }
+
 closeModalHandler = () => {
         this.setState({
             isShowing: false
         });
         this.setState({p1: this.refs.user1.value});
     }
+
+closeModal2Handler = () => {
+            this.setState({
+                isShowing2: false
+            });
+            this.setState({p1: this.refs.user1.value});
+        }
 
   render(){
 
@@ -71,6 +85,7 @@ closeModalHandler = () => {
       <div>
 
                 { this.state.isShowing ? <div onClick={this.closeModalHandler} className="back-drop"></div> : null }
+                { this.state.isShowing2 ? <div onClick={this.closeModal2Handler} className="back-drop"></div> : null }
 
                 <button className="open-modal-btn" onClick={this.openModalHandler}>Play Game</button>
                 <div>
@@ -84,7 +99,7 @@ closeModalHandler = () => {
                     <form onSubmit={this.submitFormHandler}>
                       <div>
                       <text className="text">How many players: </text>
-                      <input type="number" min="1" max="6" name="players" ref="players" style={{width: "250px"}}/>
+                      <input type="number" min="3" max="3" name="players" ref="players" style={{width: "250px"}}/>
                       <button> Submit </button>
                       </div>
 
@@ -181,6 +196,13 @@ closeModalHandler = () => {
 
                 </Modal1>
                 </div>
+                <button className="open-modal-btn" onClick={this.openModal2Handler}>PickUpModal</button>
+                <Modal2
+                className="modal"
+                show={this.state.isShowing2}
+                close={this.closeModal2Handler}>
+                </Modal2>
+
 
           {/*}<img src={logo}  className="logo" alt="logo" />*/}
       <text className="create"> Created by: Faith Miller, Mackenzie Knight, Tristan Garcia, Eduardo Antonini, and Katie Rombeiro </text>
