@@ -4,8 +4,37 @@ import './home.css';
 import Modal1 from '../components/Modal/PlayGameModal';
 import Modal2 from '../components/Modal/PickUpModal';
 
+class Player {
+  constructor(name) {
+    this._name = name;
+    // holds Player's current phase
+    this._phase = 1;
+    // holds Player's hand of cards
+    this._hand = [];
+    // holds the board of Cards laid down
+    this._board1 = [];
+    this._board2 = [];
+    // holds if the Player is skipped for a turn
+    this.skipped = false;
+    // player's points
+    this._points = 0;
+  }
+  get name() {
+    return this._name;
+  }
+
+  set name(n) {
+    this._name = n;
+  }
+}
 
 class Homepage extends Component {
+
+  testBoi(){
+    for (let i = 0; i < this.playerArr.length;i++){
+      alert(this.playerArr[i].name)
+    }
+  }
 
   componentDidMount() {
       // Call our fetch function below once the component mounts
@@ -34,6 +63,10 @@ class Homepage extends Component {
                   //p5: '',
                   //p6: '',
                   isShowing: false};
+    this.x = 0; // all of the variables will be in here
+    this.playerArr = [];
+    this.p = 0;
+
     // controlling the state of number of players and the usernames for each player
   }
 
@@ -68,7 +101,15 @@ closeModalHandler = () => {
         this.setState({
             isShowing: false
         });
-        this.setState({p1: this.refs.user1.value});
+        this.setState({p1: this.refs.user1.value, p2: this.refs.user2.value, p3: this.refs.user3.value });
+
+        this.p = new Player(this.refs.user1.value);
+        this.playerArr.push(this.p);
+        this.p = new Player(this.refs.user2.value);
+        this.playerArr.push(this.p);
+        this.p = new Player(this.refs.user3.value);
+        this.playerArr.push(this.p);
+        this.testBoi();
     }
 
 closeModal2Handler = () => {
