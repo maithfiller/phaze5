@@ -23,6 +23,13 @@ text on the homepage */
   font: Sans-Serif;
 }
 
+.text2{
+  font-size: 110%;
+  font-weight: bold;
+  font: Sans-Serif;
+  padding-left: 5%;
+}
+
 .header{
   font-size: 250%;
   font-weight: bold;
