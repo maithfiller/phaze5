@@ -15,16 +15,6 @@ class Player {
     this._points = 0;
   }
 
-  /* takeTurn() function will allow a Player to
-  decide whether they wish to draw from the Deck or
-  from the discard pile. Player will then have to
-  evaluate if they wish to try to complete a phase
-  (must be their current phase). Lastly, a Player
-  will choose a card from their hand to discard */
-  takeTurn(deck, discard_pile) {
-
-  }
-
   get phase() {
     return this._phase;
   }
@@ -34,11 +24,11 @@ class Player {
   get name() {
     return this._name;
   }
-  
+
   set name(n) {
     this._name = n;
   }
-  
+
   get hand(){
   return this._hand;
   }
@@ -80,7 +70,7 @@ class Player {
   valueOf(i){
   return this._hand[i];
   }
-  
+
   moveCardsToBoard1(cardsToMove, origin_array) {
     for (let i = cardsToMove.length - 1; i >= 0; i--) {
       if(Number(cardsToMove[i]) == origin_array.length - 1){
@@ -111,7 +101,7 @@ class Player {
         for(let k = 0; k < boardOneIndex.length; k++){
           if(boardOneIndex[k] < Number(cardsToMove[i]))
             counter++;
-        } 
+        }
         newIndex.push(cardsToMove[i] - counter);
       }
       newIndex.sort();
@@ -129,7 +119,7 @@ class Player {
   isBoardEmpty() {
     return this._board1.length == 0 && this._board2.length == 0;
   }
-  
+
   draw(decc, discard_pile, choice) {
     let temp1, temp2;
 
@@ -258,7 +248,7 @@ class Player {
     }
     alert(printStr);
   }
-  
+
   makeSkipTrue() {
     this.skipped = true;
   }
