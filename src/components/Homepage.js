@@ -6,9 +6,106 @@ import Modal2 from '../components/Modal/PickUpModal';
 
 class Homepage extends Component {
 
-  testBoi(){
+  setGameInfo(){
     for (let i = 0; i < this.playerArr.length;i++){
       alert(this.playerArr[i].name)
+    }
+    this.currentPlayer = this.playerArr[0]; // sets current player
+    this.gameDeck = new Deck(); // creates game deck
+    this.discardPile.push(this.gameDeck.dealCard()); // places a card on discard pile
+    // deal 10 cards to all players
+  }
+
+  checkPhaze2(playerArr){
+     for(let i = 0; i < playerArr.length; i++){
+       //assumes we have a get phase() function
+         if(playerArr[i].phase == 3)
+           return true;
+      }
+     return false;
+   }
+
+  //return true if any player's hand is empty, used to tell when round is over
+   isAnyHandEmpty(playerArr){
+     for(let i = 0; i < playerArr.length; i++){
+       //assumes we have function that returns size of a player's hand
+       if(playerArr[i].handSize == 0)
+        return true;
+     }
+   return false;
+  }
+
+  //first array is array of indexes to check
+  //second array is hand of cards
+  isASet(arr1, arr2){
+    if(arr1[0] != -1){
+       let initialNum;
+       let counter = 0;
+      for(let i = 0; i < arr1.length; i++){
+           if(arr2[arr1[i]].number != 14 && counter == 0){
+              initialNum = arr2[arr1[i]].number;
+              counter++;
+           }
+           if(counter > 0){
+             if(initialNum != arr2[arr1[i]].number && arr2[arr1[i]].number != 14){
+               return false;
+             }
+           }
+      }
+       return true;
+    }
+    else{
+      let initialNum;
+      let counter = 0;
+      for(let i = 0; i < arr2.length; i++){
+           if(arr2[i]._number != 14 && counter == 0){
+              initialNum = arr2[i]._number;
+              counter++;
+           }
+           if(counter > 0){
+             if(initialNum != arr2[i]._number && arr2[i]._number != 14){
+               return false;
+             }
+           }
+      }
+       return true;
+    }
+  }
+
+  isARun(arr1, arr2){
+    if(arr1[0] != -1){
+      let tempArr =[];
+      //push each card number into an array to be sorted by
+      for(let i = 0; i < arr1.length; i++)
+        tempArr.push(arr2[arr1[i]].number);
+        //sort array in ascending order
+        tempArr.sort(function(a, b){return a - b});
+        //same method used in isASet, grab the number of the first card of hand
+        let initialNum = tempArr[0];
+        for(let i = 1; i < tempArr.length; i++){
+          let nextNum = tempArr[i];
+          //verify the next number is one greater then the last, a run
+          if(nextNum != (initialNum + i) && nextNum != 14)
+            return false;
+        }
+      return true;
+    }
+    else{
+      let tempArr =[];
+      //push each card number into an array to be sorted by
+      for(let i = 0; i < arr2.length; i++)
+        tempArr.push(arr2[i]._number);
+        //sort array in ascending order
+        tempArr.sort(function(a, b){return a - b});
+        //same method used in isASet, grab the number of the first card of hand
+        let initialNum = tempArr[0];
+        for(let i = 1; i < tempArr.length; i++){
+          let nextNum = tempArr[i];
+          //verify the next number is one greater then the last, a run
+          if(nextNum != (initialNum + i) && nextNum != 14)
+            return false;
+        }
+      return true;
     }
   }
 
@@ -39,9 +136,12 @@ class Homepage extends Component {
                   //p5: '',
                   //p6: '',
                   isShowing: false};
-    this.x = 0; // all of the variables will be in here
+    // member data
     this.playerArr = [];
-    this.p = 0;
+    this.gameDeck = 0;
+    this.discardPile = [];
+    this.currentPlayer = 0; // keeps track globally of which player is up next
+    this.p = 0; // temp variable
 
     // controlling the state of number of players and the usernames for each player
   }
@@ -85,7 +185,7 @@ closeModalHandler = () => {
         this.playerArr.push(this.p);
         this.p = new Player(this.refs.user3.value);
         this.playerArr.push(this.p);
-        this.testBoi();
+        this.setGameInfo();
     }
 
 closeModal2Handler = () => {
