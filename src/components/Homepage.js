@@ -7,13 +7,15 @@ import {PickUpModal} from '../components/Modal/PickUpModal';
 class Homepage extends Component {
 
   setGameInfo(){
-    for (let i = 0; i < this.playerArr.length;i++){
-      alert(this.playerArr[i].name)
-    }
     this.currentPlayer = this.playerArr[0]; // sets current player
     this.gameDeck = new Deck(); // creates game deck
     this.discardPile.push(this.gameDeck.dealCard()); // places a card on discard pile
     // deal 10 cards to all players
+    for(let i = 0; i < 10; i++){
+      for(let k = 0; k < this.playerArr.length; k++){
+        this.playerArr[k].draw(this.gameDeck, this.discardPile, 1)
+      }
+    }
   }
 
   checkPhaze2(playerArr){
@@ -171,7 +173,7 @@ openModal2Handler = () => {
             this.setState({
                 isShowing2: true
             });
-        }
+}
 
 closeModalHandler = () => {
         this.setState({
@@ -186,6 +188,7 @@ closeModalHandler = () => {
         this.p = new Player(this.refs.user3.value);
         this.playerArr.push(this.p);
         this.setGameInfo();
+        this.openModal2Handler(); // open the next modal
     }
 
 closeModal2Handler = () => {
