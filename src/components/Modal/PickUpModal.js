@@ -59,6 +59,86 @@ class PickUpModal extends Component {
                             </div>
                         }
 
+                        {this.state.thediscardmove === '0' &&
+                        <div>
+                        {/* cardnumber(index of card).phasenumber(1,2).cardofphasepart(1,2,3)*/}
+                          <text> <text className="text"> Enter the indices of the cards for the first and second parts of the phase? </text>
+                          <br></br>
+                          <text className="text"> Card 1 for first part of phase: </text>
+                          <select>
+                              <option value="0.1.1">0</option>
+                              <option value="1.1.1">1</option>
+                              <option value="2.1.1">2</option>
+                              <option value="3.1.1">3</option>
+                              <option value="4.1.1">4</option>
+                              <option value="5.1.1">5</option>
+                              <option value="6.1.1">6</option>
+                              <option value="7.1.1">7</option>
+                              </select>
+                    <br></br>
+                    <text className="text"> Card 2 for first part of phase: </text>
+                    <select>
+                              <option value="0.1.2">0</option>
+                              <option value="1.1.2">1</option>
+                              <option value="2.1.2">2</option>
+                              <option value="3.1.2">3</option>
+                              <option value="4.1.2">4</option>
+                              <option value="5.1.2">5</option>
+                              <option value="6.1.2">6</option>
+                              <option value="7.1.2">7</option>
+                    </select>
+                    <br></br>
+                    <text className="text"> Card 3 for first part of phase: </text>
+                    <select>
+                              <option value="0.1.3">0</option>
+                              <option value="1.1.3">1</option>
+                              <option value="2.1.3">2</option>
+                              <option value="3.1.3">3</option>
+                              <option value="4.1.3">4</option>
+                              <option value="5.1.3">5</option>
+                              <option value="6.1.3">6</option>
+                              <option value="7.1.3">7</option>
+                    </select>
+                    <br></br>
+                    <text className="text"> Card 1 for second part of phase: </text>
+                    <select>
+                              <option value="0.2.1">0</option>
+                              <option value="1.2.1">1</option>
+                              <option value="2.2.1">2</option>
+                              <option value="3.2.1">3</option>
+                              <option value="4.2.1">4</option>
+                              <option value="5.2.1">5</option>
+                              <option value="6.2.1">6</option>
+                              <option value="7.2.1">7</option>
+                    </select>
+                    <br></br>
+                    <text className="text"> Card 2 for second part of phase: </text>
+                    <select>
+                              <option value="0.2.2">0</option>
+                              <option value="1.2.2">1</option>
+                              <option value="2.2.2">2</option>
+                              <option value="3.2.2">3</option>
+                              <option value="4.2.2">4</option>
+                              <option value="5.2.2">5</option>
+                              <option value="6.2.2">6</option>
+                              <option value="7.2.2">7</option>
+                    </select>
+                    <br></br>
+                    <text className="text"> Card 3 for second part of phase: </text>
+                    <select>
+                              <option value="0.2.3">0</option>
+                              <option value="1.2.3">1</option>
+                              <option value="2.2.3">2</option>
+                              <option value="3.2.3">3</option>
+                              <option value="4.2.3">4</option>
+                              <option value="5.2.3">5</option>
+                              <option value="6.2.3">6</option>
+                              <option value="7.2.3">7</option>
+                    </select>
+                          </text>
+                        </div>
+                        }
+
                 </div>
                 <div className="modal-footer">
                     <button className="btn-cancel" onClick={this.props.close}>CLOSE</button>
