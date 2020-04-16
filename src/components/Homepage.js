@@ -186,7 +186,6 @@ closeModalHandler = () => {
         this.p = new Player(this.refs.user3.value);
         this.playerArr.push(this.p);
         this.setGameInfo();
-        this.openModal2Handler();
     }
 
 closeModal2Handler = () => {
@@ -315,11 +314,11 @@ closeModal2Handler = () => {
 
                 </Modal1>
                 <button className="open-modal-btn" onClick={this.openModal2Handler}>PickUpModal</button>
-                {/*}<PickUpModal
+                <PickUpModal
                 className="modal"
                 show={this.state.isShowing2}
                 close={this.closeModal2Handler}>
-                </PickUpModal>*/}
+                </PickUpModal>
                 </div>
 
 
