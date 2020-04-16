@@ -1,4 +1,4 @@
-export class Card {
+class Card {
   // number is 13 for skip and 14 for wild
   constructor(number, color) {
     this._number = number;
@@ -32,7 +32,7 @@ export class Card {
 
 
 
-export class Deck {
+class Deck {
 
   constructor() {
     // array of type Card
@@ -67,18 +67,6 @@ export class Deck {
   push(x){
     this.deck.push(x);
   }
-
-  //Card(index) {
-
-    // if index is out of bounds, return null
-    //if (index < 0 || index >= this.deck.length) {
-      //return;
-      // return null
-    //}
-
-    // else, return card @ index
-    //return this.deck[index];
-  //}
 
   shuffle() {
 
