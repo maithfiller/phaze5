@@ -236,13 +236,14 @@ closeModal2Handler = () => {
                       </form>
 
                 </Modal1>
-                </div>
                 <button className="open-modal-btn" onClick={this.openModal2Handler}>PickUpModal</button>
                 <Modal2
                 className="modal"
                 show={this.state.isShowing2}
                 close={this.closeModal2Handler}>
                 </Modal2>
+                </div>
+
 
 
           {/*}<img src={logo}  className="logo" alt="logo" />*/}
