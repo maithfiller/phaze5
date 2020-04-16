@@ -21,7 +21,7 @@ class Homepage extends Component {
   checkPhaze2(playerArr){
      for(let i = 0; i < playerArr.length; i++){
        //assumes we have a get phase() function
-         if(playerArr[i].phase == 3)
+         if(playerArr[i].phase === 3)
            return true;
       }
      return false;
@@ -316,12 +316,12 @@ closeModal2Handler = () => {
                       </form>
 
                 </Modal1>
-                <button className="open-modal-btn" onClick={this.openModal2Handler}>PickUpModal</button>
+                {/*}<button className="open-modal-btn" onClick={this.openModal2Handler}>PickUpModal</button>
                 <PickUpModal
                 className="modal"
                 show={this.state.isShowing2}
                 close={this.closeModal2Handler}>
-                </PickUpModal>
+                </PickUpModal>*/}
                 </div>
 
 
