@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './home.css';
 import Modal1 from '../components/Modal/PlayGameModal';
-import Modal2 from '../components/Modal/PickUpModal';
+import {PickUpModal} from '../components/Modal/PickUpModal';
 
 class Player {
   constructor(name) {
@@ -91,7 +91,7 @@ openModalHandler = () => {
         });
     }
 
-    openModal2Handler = () => {
+openModal2Handler = () => {
             this.setState({
                 isShowing2: true
             });
@@ -116,7 +116,8 @@ closeModal2Handler = () => {
             this.setState({
                 isShowing2: false
             });
-            this.setState({p1: this.refs.user1.value});
+
+            //this.setState({p1: this.refs.user1.value});
         }
 
   render(){
@@ -237,11 +238,11 @@ closeModal2Handler = () => {
 
                 </Modal1>
                 <button className="open-modal-btn" onClick={this.openModal2Handler}>PickUpModal</button>
-                <Modal2
+                <PickUpModal
                 className="modal"
                 show={this.state.isShowing2}
                 close={this.closeModal2Handler}>
-                </Modal2>
+                </PickUpModal>
                 </div>
 
 
