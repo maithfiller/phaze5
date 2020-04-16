@@ -186,6 +186,7 @@ closeModalHandler = () => {
         this.p = new Player(this.refs.user3.value);
         this.playerArr.push(this.p);
         this.setGameInfo();
+        this.openModal2Handler();
     }
 
 closeModal2Handler = () => {
