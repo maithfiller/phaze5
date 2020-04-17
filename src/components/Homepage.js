@@ -7,7 +7,7 @@ import {PickUpModal} from '../components/Modal/PickUpModal';
 class Homepage extends Component {
 
   setGameInfo(){
-    this.currentPlayer = this.playerArr[0]; // sets current player
+    this.currentPlayer = 0; // sets current player index
     this.gameDeck = new Deck(); // creates game deck
     this.discardPile.push(this.gameDeck.dealCard()); // places a card on discard pile
     // deal 10 cards to all players
@@ -155,13 +155,17 @@ class Homepage extends Component {
                   //p4: '',
                   //p5: '',
                   //p6: '',
-                  isShowing: false};
+                  isShowing: false,
+                  isShowing2: false
+                  };
     // member data
     this.playerArr = [];
     this.gameDeck = 0;
     this.discardPile = [];
     this.currentPlayer = 0; // keeps track globally of which player is up next
     this.p = 0; // temp variable
+    this.topDis = 0; // top of discardPile
+    this.handStr = 0; // temp hand string
 
     // controlling the state of number of players and the usernames for each player
   }
@@ -191,7 +195,7 @@ openModal2Handler = () => {
             this.setState({
                 isShowing2: true
             });
-        }
+}
 
 closeModalHandler = () => {
         this.setState({
@@ -206,7 +210,10 @@ closeModalHandler = () => {
         this.p = new Player(this.refs.user3.value);
         this.playerArr.push(this.p);
         this.setGameInfo();
-        this.openModal2Handler(); // opening next modal
+        this.handStr = this.playerArr[this.currentPlayer].showHand();
+        this.topDis = this.discardPile[this.discardPile.length - 1]._number;
+        this.openModal2Handler(); // opening next modal w string containing hand
+        // and number indicating top of discard pile
     }
 
 closeModal2Handler = () => {
@@ -602,7 +609,7 @@ class Player {
       printStr += this._hand[i]._number;
       printStr += "  |";
     }
-    alert(printStr);
+    return printStr; // return the hand in a string to pass into modal
   }
 
   makeSkipTrue() {
