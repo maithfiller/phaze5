@@ -2,12 +2,12 @@ import React, { Component } from 'react';
 import { Link } from "react-router-dom";
 import './home.css';
 import Modal1 from '../components/Modal/PlayGameModal';
-import {PickUpModal} from '../components/Modal/PickUpModal';
+import PickUpModal from '../components/Modal/PickUpModal';
 
 class Homepage extends Component {
 
   setGameInfo(){
-    this.currentPlayer = 0; // sets current player index
+    this.currentPlayer = this.playerArr[0]; // sets current player
     this.gameDeck = new Deck(); // creates game deck
     this.discardPile.push(this.gameDeck.dealCard()); // places a card on discard pile
     // deal 10 cards to all players
@@ -17,24 +17,6 @@ class Homepage extends Component {
       }
     }
   }
-
-  endOfTurn(){
-    // check if the current player still has cards left
-    // if not, add up all players' scores and call end of endOfRound
-
-    // else, increment the current player
-    if (this.currentPlayer == this.playerArr.length - 1)
-      this.currentPlayer = 0;
-    else
-      this.currentPlayer++;
-  }
-
-  endOfRound(){
-    // check to see if any player has completed phase 2
-    // if so, print scoreboard and declare a winner
-    // else, call setGameInfo
-  }
-
 
   checkPhaze2(playerArr){
      for(let i = 0; i < playerArr.length; i++){
@@ -156,16 +138,23 @@ class Homepage extends Component {
                   //p5: '',
                   //p6: '',
                   isShowing: false,
-                  isShowing2: false
-                  };
+                  thepickups: '',
+                  thediscardmove: '',
+                  thediscardmove2:'',
+                  thediscard: '',
+                  firstfirst: '', //first part of phase first card
+                  secondfirst: '',  // second part of phase first card
+                  firstsecond: '',  //first part of phase second card
+                  secondsecond: '', //second part of phase second card
+                  firstthird: '', //first part of phase third card
+                  secondthird: '' //second part of phase third card
+                };
     // member data
     this.playerArr = [];
     this.gameDeck = 0;
     this.discardPile = [];
     this.currentPlayer = 0; // keeps track globally of which player is up next
     this.p = 0; // temp variable
-    this.topDis = 0; // top of discardPile
-    this.handStr = 0; // temp hand string
 
     // controlling the state of number of players and the usernames for each player
   }
@@ -195,7 +184,7 @@ openModal2Handler = () => {
             this.setState({
                 isShowing2: true
             });
-}
+        }
 
 closeModalHandler = () => {
         this.setState({
@@ -210,10 +199,7 @@ closeModalHandler = () => {
         this.p = new Player(this.refs.user3.value);
         this.playerArr.push(this.p);
         this.setGameInfo();
-        this.handStr = this.playerArr[this.currentPlayer].showHand();
-        this.topDis = this.discardPile[this.discardPile.length - 1]._number;
-        this.openModal2Handler(); // opening next modal w string containing hand
-        // and number indicating top of discard pile
+        this.openModal2Handler(); // opening next modal
     }
 
 closeModal2Handler = () => {
@@ -223,6 +209,28 @@ closeModal2Handler = () => {
 
             //this.setState({p1: this.refs.user1.value});
         }
+        submitHandler = event => {
+        this.setState({thepickups: this.refs.pickups.value});
+        console.log(this.refs.pickups.value);
+                        // updating the state of the number of players and each players username
+        }
+        submitHandler2 = event => {
+          this.setState({thediscardmove: this.refs.discardmove.value});
+
+        }
+
+        submitHandler3 = event => {
+          this.setState({thediscardmove2: this.refs.discardmove2.value});
+        }
+        discardsubmitHandler = event => {
+          this.setState({thediscard: this.refs.discard.value});
+          console.log(this.refs.discard.value);
+        }
+
+        indexcardHandler = event => {
+          this.setState({index1: this.refs.firstfirst.value, index2: this.refs.secondfirst.value, index3: this.refs.firstsecond.value,
+                          index4: this.refs.secondsecond.value, index5: this.refs.firstthird.value, index6: this.refs.secondthird.value})
+          }
 
   render(){
 
@@ -346,6 +354,105 @@ closeModal2Handler = () => {
                 className="modal"
                 show={this.state.isShowing2}
                 close={this.closeModal2Handler}>
+                <div>
+
+
+
+                        <div>
+                                <text className="text">Would you like to pick up from the deck or the discard pile? </text>
+                                <text className="text">Enter 0 for deck and 1 for discard pile. </text>
+                                <input type="number" min="0" max="1" name="pickups" ref="pickups" style={{width: "250px"}}/>
+                                <button onClick={this.submitHandler}> Submit </button>
+                        </div>
+
+
+                                {/* in the below if statement, we will show the newly picked up card from the deck and then ask the following question */}
+                                {this.state.thepickups === '0' &&
+                                  <div>
+                                    <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
+                                    <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
+                                    <input type="number" min="0" max="1" name="discardmove" ref="discardmove" style={{width: "250px"}}/>
+                                    <button onClick={this.submitHandler2}> Submit </button> </text>
+                                    </div>
+                                }
+
+                                {/* in the below if statement, we will show the newly picked up card from the discard and then ask the following question */}
+                                {this.state.thepickups === '1' &&
+                                  <div>
+                                    <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
+                                    <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
+                                    <input type="number" min="0" max="1" name="discardmove" ref="discardmove" style={{width: "250px"}}/>
+                                    <button onClick={this.submitHandler2}> Submit </button> </text>
+                                    </div>
+                                }
+
+
+                                {/* Technically Modal 4*/}
+                                {this.state.thediscardmove === '1' &&
+                                <div>
+                                {/* cardnumber(index of card).phasenumber(1,2).cardofphasepart(1,2,3)*/}
+                                  <text> <text className="text"> Enter the indices of the cards for the first and second parts of the phase? </text>
+                                  <br></br>
+                                  <text className="text"> Card index for 1st card for first part of phase: </text>
+                                  <input type="number" min="0" max="10" name="firstfirst" ref="firstfirst" style={{width: "50px"}}/>
+
+                                  <text className="text2"> Card index for 1st card for second part of phase: </text>
+                                  <input type="number" min="0" max="10" name="secondfirst" ref="secondfirst" style={{width: "50px"}}/>
+
+                            <br></br>
+                            <text className="text"> Card index for 2nd for first part of phase: </text>
+                            <input type="number" min="0" max="10" name="firstsecond" ref="firstsecond" style={{width: "50px"}}/>
+
+                            <text className="text2"> Card index for 2nd card for second part of phase: </text>
+                            <input type="number" min="0" max="10" name="secondsecond" ref="secondsecond" style={{width: "50px"}}/>
+                            <br></br>
+
+                            <text className="text"> Card index for 3rd card for first part of phase: </text>
+                            <input type="number" min="0" max="10" name="firstthird" ref="firstthird" style={{width: "50px"}}/>
+
+                            <text className="text2"> Card index for 3rd card for second part of phase: </text>
+                            <input type="number" min="0" max="10" name="secondthird" ref="secondthird" style={{width: "50px"}}/>
+                            <button onClick={this.indexcardHandler}> Submit </button>
+                                  </text>
+                                  </div>
+                                  }
+                          {/*Technically Modal 5 */}
+                          {this.state.thediscardmove === '0' &&
+                          <div>
+                          <text> <text className="text">Would you like to discard or add cards to another players game board? </text>
+                          <text className="text">Enter 1 to discard and 2 to lay down cards to another board. </text>
+                          <input type="number" min="1" max="2" name="discardmove2" ref="discardmove2" style={{width: "250px"}}/>
+                          <button onClick={this.submitHandler3}> Submit </button> </text>
+                          </div>
+                          }
+
+                          {/* Technically modal 6*/}
+                          {this.state.thediscardmove2 === '1' &&
+                          <div>
+                          <text> <text className="text"> Enter the index of the card you want to discard. </text>
+                          <input type="number" min="0" max="10" name="discard" ref="discard" style={{width: "50px"}}/>
+                          <button onClick={this.discardsubmitHandler}> Submit </button>
+                              </text>
+                          </div>
+                        }
+
+                        {/* Technically Modal 7/8 and this needs to show other players hands!*/}
+                        {this.state.thediscardmove2 === '2' &&
+                        <div>
+                        <text> <text className="text"> Enter the player number you wish to discard your cards on. </text>
+                        <input type="text"  name="discardname" ref="discardname" style={{width: "100px"}}/>
+                        <button onClick={this.discardnameHandler}> Submit </button>
+                            </text>
+                        </div>
+                      }
+
+                      {/* Still must do modal 9 which is showing other players hand */}
+
+                      </div>
+
+
+
+
                 </PickUpModal>
                 </div>
 
@@ -609,7 +716,7 @@ class Player {
       printStr += this._hand[i]._number;
       printStr += "  |";
     }
-    return printStr; // return the hand in a string to pass into modal
+    alert(printStr);
   }
 
   makeSkipTrue() {
