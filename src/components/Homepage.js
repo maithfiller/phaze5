@@ -18,6 +18,24 @@ class Homepage extends Component {
     }
   }
 
+  endOfTurn(){
+    // check if the current player still has cards left
+    // if not, add up all players' scores and call end of endOfRound
+
+    // else, increment the current player
+    if (this.currentPlayer == this.playerArr.length - 1)
+      this.currentPlayer = 0;
+    else
+      this.currentPlayer++;
+  }
+
+  endOfRound(){
+    // check to see if any player has completed phase 2
+    // if so, print scoreboard and declare a winner
+    // else, call setGameInfo
+  }
+
+
   checkPhaze2(playerArr){
      for(let i = 0; i < playerArr.length; i++){
        //assumes we have a get phase() function
