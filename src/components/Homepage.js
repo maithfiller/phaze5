@@ -137,7 +137,7 @@ class Homepage extends Component {
       this.currentPlayer++;
       // update handStr with new player
       this.handStr = this.playerArr[this.currentPlayer].showHand();
-      this.topDis = this.discardPile[this.discardPile.length - 1]._number;
+    //  this.topDis = this.discardPile[this.discardPile.length - 1]._number;
 
 this.state.thepickups='';
 this.state.thediscardmove='';
