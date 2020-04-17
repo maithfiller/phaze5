@@ -135,7 +135,13 @@ class Homepage extends Component {
       this.currentPlayer = 0;
     else
       this.currentPlayer++;
-    // update handStr with new player
+      // update handStr with new player
+      this.handStr = this.playerArr[this.currentPlayer].showHand();
+      this.topDis = this.discardPile[this.discardPile.length - 1]._number;
+
+    //  document.getElementById("modalForm").reset();
+
+
 
     this.openModal2Handler(); // restart the modal sequence
   }
@@ -389,12 +395,13 @@ closeModal2Handler = () => {
         }
         discardsubmitHandler = event => {
           this.setState({thediscard: this.refs.discard.value});
-          console.log(this.refs.discard.value);
+          this.finalDiscard(this.refs.discard.value)
         }
 
         indexcardHandler = event => {
           this.setState({index1: this.refs.firstfirst.value, index2: this.refs.secondfirst.value, index3: this.refs.firstsecond.value,
                           index4: this.refs.secondsecond.value, index5: this.refs.firstthird.value, index6: this.refs.secondthird.value})
+          this.checkPhase(this.refs.firstfirst.value,this.refs.firstsecond.value,this.refs.firstthird.value,this.refs.secondfirst.value, this.refs.secondsecond.value, this.refs.secondthird.value)
           }
 
   render(){
@@ -523,6 +530,7 @@ closeModal2Handler = () => {
 
 
 
+
                         <div>
                                  <text className="text"> {this.handStr} </text>
                                  <text className = "text"> Top of discard pile: {this.topDis} </text>
@@ -588,7 +596,7 @@ closeModal2Handler = () => {
 
                             <button onClick={this.indexcardHandler}> Submit </button>
                                   </text>
-                                {/*  {this.checkPhase(this.state.firstfirst,this.state.firstsecond,this.state.firstthird,this.state.secondfirst, this.state.secondsecond, this.state.secondthird)} // checking the phase entered*/}
+
                                   </div>
                                   }
                           {/*Technically Modal 5 */}
@@ -608,7 +616,7 @@ closeModal2Handler = () => {
                           <input type="number" min="0" max="10" name="discard" ref="discard" style={{width: "50px"}}/>
                           <button onClick={this.discardsubmitHandler}> Submit </button>
                               </text>
-                        { /* {this.finalDiscard(this.state.thediscard)} */}
+
                           </div>
                         }
 
@@ -630,6 +638,7 @@ closeModal2Handler = () => {
 
 
                 </PickUpModal>
+
                 </div>
 
 
