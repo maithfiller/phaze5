@@ -16,24 +16,166 @@ class Homepage extends Component {
         this.playerArr[k].draw(this.gameDeck, this.discardPile, 1)
       }
     }
+    // sort all player's hands initially
+    for (let i = 0; i < this.playerArr.length; i++){
+      this.playerArr[i].sortHand();
+    }
+  }
+
+  drawFromDeck(){
+    this.playerArr[this.currentPlayer].draw(this.gameDeck, this.discardPile, 1)
+    this.playerArr[this.currentPlayer].sortHand();
+    this.handStr = this.playerArr[this.currentPlayer].showHand();
+  }
+
+  drawFromDP(){
+    this.playerArr[this.currentPlayer].draw(this.gameDeck, this.discardPile, 2)
+    this.playerArr[this.currentPlayer].sortHand();
+    this.handStr = this.playerArr[this.currentPlayer].showHand();
+  }
+
+  checkPhase(ff,fs,ft,sf,ss,st){
+    //if currently trying for phaze 1
+    // returns 0 for success, -1 for invalid phase
+    if(this.playerArr[this.currentPlayer]._phase == 1){
+      let set1 =[];
+      let set2 =[];
+      // pushing card index values
+      set1.push(ff);
+      set1.push(fs);
+      set1.push(ft);
+
+      //send the indexes of those cards to a function that returns whether its a true set or not
+      if(this.isASet(set1, this.playerArr[this.currentPlayer]._hand) == true){
+        //if your first set was verifies, go on and repeat the same steps for second set
+        // pushing card index values
+        set2.push(sf);
+        set2.push(ss);
+        set2.push(st);
+        //test validity of second set
+        if(this.isASet(set2, this.playerArr[this.currentPlayer]._hand) == true){
+          //those sets will be sent to "board" array only if both sets are verified as true sets
+          //assuming we have function that takes an array of indexes, and the hand of the current player's cards and moves those cards to the "board" array
+          this.playerArr[this.currentPlayer].moveCardsToBoard1(set1, this.playerArr[this.currentPlayer]._hand);
+          this.playerArr[this.currentPlayer].moveCardsToBoard2(set2, set1, this.playerArr[this.currentPlayer]._hand);
+        //  this.playerArr[this.currentPlayer].showBoards();
+          this.playerArr[this.currentPlayer].addPhase();
+          return 0;
+        }
+        else{
+          let printStr = "Sorry! That doesn't qualify. Time to discard!\n";
+          alert(printStr);
+          return -1;
+        }
+      }
+      else{
+          let printStr = "Sorry! That doesn't qualify. Time to discard!\n";
+          alert(printStr);
+          return -1;
+      }
+    }
+    //repeat same set of steps for each other phaze
+    else // player is on phase 2
+    {
+      let set1 =[];
+      let run2 =[];
+
+      set1.push(ff);
+      set1.push(fs);
+      set1.push(ft);
+
+        if(this.isASet(set1, this.playerArr[this.currentPlayer].hand) == true){
+          run2.push(sf);
+          run2.push(ss);
+          run2.push(st);
+
+          if(this.isARun(run2, this.playerArr[this.currentPlayer]._hand) == true){
+            this.playerArr[this.currentPlayer].moveCardsToBoard1(set1,this.playerArr[this.currentPlayer]._hand);
+            this.playerArr[this.currentPlayer].moveCardsToBoard2(run2, set1, this.playerArr[this.currentPlayer]._hand);
+            this.playerArr[this.currentPlayer].addPhase();
+            return 0;
+          }
+
+          else{
+            let printStr = "Sorry! That doesn't qualify. Time to discard!\n";
+            alert(printStr);
+            return -1;
+          }
+        }
+        else{
+          let printStr = "Sorry! That doesn't qualify. Time to discard!\n";
+          alert(printStr);
+          return -1;
+        }
+    }
+  }
+
+  finalDiscard(discardChoice){
+    let temp = this.playerArr[this.currentPlayer].valueOf(discardChoice);
+    if(temp._number === 13){
+      // skip the next player
+      if (this.currentPlayer === this.playerArr.length - 1)
+        this.playerArr[0].makeSkipTrue();
+      else
+        this.playerArr[this.currentPlayer + 1].makeSkipTrue();
+
+    }
+    this.discardPile.push(...(this.playerArr[this.currentPlayer].dropCard(discardChoice)));
+    this.endOfTurn();
   }
 
   endOfTurn(){
     // check if the current player still has cards left
-    // if not, add up all players' scores and call end of endOfRound
+    if (this.isAnyHandEmpty(this.playerArr))
+      this.endOfRound();
 
     // else, increment the current player
+    // check for a skip
     if (this.currentPlayer === this.playerArr.length - 1)
       this.currentPlayer = 0;
     else
       this.currentPlayer++;
     // update handStr with new player
+
+    this.openModal2Handler(); // restart the modal sequence
   }
 
   endOfRound(){
     // check to see if any player has completed phase 2
     // if so, print scoreboard and declare a winner
     // else, call setGameInfo
+    if (this.checkPhaze2(this.playerArr)){
+
+    }
+    else{
+      //Someone has an empty hand, round is over
+      //calculate points for people who still have hands
+      for(let k = 0; k < this.playerArr.length; k++){
+        if(this.playerArr[k]._handSize != 0)
+          this.playerArr[k].addPoints();
+      }
+      //print score to screen
+      //assumes we have "point" getter function
+      let printStr = "Scoreboard: \n";
+      for(let k = 0; k < this.playerArr.length; k++){
+        let m = k+1;
+        printStr = printStr + "Player " + m + ": " + this.playerArr[k]._points + "\n";
+      }
+      alert(printStr);
+      //go through player clear hand and board
+      for(let k = 0; k < this.playerArr.length; k++){
+        this.playerArr[k].clearHand();
+        this.playerArr[k].clearBoard();
+      }
+      this.gameDeck = new Deck();
+      this.discardPile = [];
+      this.discardPile.push(this.gameDeck.dealCard());
+      for(let p = 0; p < 10; p++){
+        for(let k = 0; k < this.playerArr.length; k++){
+          this.playerArr[k].draw(this.gameDeck, this.discardPile, 1)
+          }
+      }
+    }
   }
 
   checkPhaze2(playerArr){
@@ -175,6 +317,7 @@ class Homepage extends Component {
     this.p = 0; // temp variable
     this.topDis = 0;
     this.handStr = 0;
+    // this.tempRes = 0;
 
     // controlling the state of number of players and the usernames for each player
   }
@@ -382,6 +525,7 @@ closeModal2Handler = () => {
 
                         <div>
                                  <text className="text"> {this.handStr} </text>
+                                 <text className = "text"> Top of discard pile: {this.topDis} </text>
                                 <br></br>
                                 <text className="text">Would you like to pick up from the deck or the discard pile? </text>
                                 <text className="text">Enter 0 for deck and 1 for discard pile. </text>
@@ -393,6 +537,8 @@ closeModal2Handler = () => {
                                 {/* in the below if statement, we will show the newly picked up card from the deck and then ask the following question */}
                                 {this.state.thepickups === '0' &&
                                   <div>
+                                    {this.drawFromDeck()}
+                                    <text className="text"> {this.handStr} </text>
                                     <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
                                     <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
                                     <input type="number" min="0" max="1" name="discardmove" ref="discardmove" style={{width: "250px"}}/>
@@ -403,6 +549,9 @@ closeModal2Handler = () => {
                                 {/* in the below if statement, we will show the newly picked up card from the discard and then ask the following question */}
                                 {this.state.thepickups === '1' &&
                                   <div>
+                                  {this.drawFromDP()}
+                                  <text className="text"> {this.handStr} </text>
+
                                     <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
                                     <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
                                     <input type="number" min="0" max="1" name="discardmove" ref="discardmove" style={{width: "250px"}}/>
@@ -436,8 +585,10 @@ closeModal2Handler = () => {
 
                             <text className="text2"> Card index for 3rd card for second part of phase: </text>
                             <input type="number" min="0" max="10" name="secondthird" ref="secondthird" style={{width: "50px"}}/>
+
                             <button onClick={this.indexcardHandler}> Submit </button>
                                   </text>
+                                {/*  {this.checkPhase(this.state.firstfirst,this.state.firstsecond,this.state.firstthird,this.state.secondfirst, this.state.secondsecond, this.state.secondthird)} // checking the phase entered*/}
                                   </div>
                                   }
                           {/*Technically Modal 5 */}
@@ -457,6 +608,7 @@ closeModal2Handler = () => {
                           <input type="number" min="0" max="10" name="discard" ref="discard" style={{width: "50px"}}/>
                           <button onClick={this.discardsubmitHandler}> Submit </button>
                               </text>
+                        { /* {this.finalDiscard(this.state.thediscard)} */}
                           </div>
                         }
 
