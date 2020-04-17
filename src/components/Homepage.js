@@ -7,7 +7,7 @@ import PickUpModal from '../components/Modal/PickUpModal';
 class Homepage extends Component {
 
   setGameInfo(){
-    this.currentPlayer = this.playerArr[0]; // sets current player
+    this.currentPlayer = 0; // sets current player
     this.gameDeck = new Deck(); // creates game deck
     this.discardPile.push(this.gameDeck.dealCard()); // places a card on discard pile
     // deal 10 cards to all players
@@ -17,6 +17,24 @@ class Homepage extends Component {
       }
     }
   }
+
+  endOfTurn(){
+    // check if the current player still has cards left
+    // if not, add up all players' scores and call end of endOfRound
+
+    // else, increment the current player
+    if (this.currentPlayer === this.playerArr.length - 1)
+      this.currentPlayer = 0;
+    else
+      this.currentPlayer++;
+    // update handStr with new player
+  }
+
+  endOfRound(){
+    // check to see if any player has completed phase 2
+    // if so, print scoreboard and declare a winner
+    // else, call setGameInfo
+  }
 
   checkPhaze2(playerArr){
      for(let i = 0; i < playerArr.length; i++){
@@ -31,7 +49,7 @@ class Homepage extends Component {
    isAnyHandEmpty(playerArr){
      for(let i = 0; i < playerArr.length; i++){
        //assumes we have function that returns size of a player's hand
-       if(playerArr[i].handSize == 0)
+       if(playerArr[i].handSize === 0)
         return true;
      }
    return false;
@@ -40,16 +58,16 @@ class Homepage extends Component {
   //first array is array of indexes to check
   //second array is hand of cards
   isASet(arr1, arr2){
-    if(arr1[0] != -1){
+    if(arr1[0] !== -1){
        let initialNum;
        let counter = 0;
       for(let i = 0; i < arr1.length; i++){
-           if(arr2[arr1[i]].number != 14 && counter == 0){
+           if(arr2[arr1[i]].number !== 14 && counter === 0){
               initialNum = arr2[arr1[i]].number;
               counter++;
            }
            if(counter > 0){
-             if(initialNum != arr2[arr1[i]].number && arr2[arr1[i]].number != 14){
+             if(initialNum !== arr2[arr1[i]].number && arr2[arr1[i]].number !== 14){
                return false;
              }
            }
@@ -60,12 +78,12 @@ class Homepage extends Component {
       let initialNum;
       let counter = 0;
       for(let i = 0; i < arr2.length; i++){
-           if(arr2[i]._number != 14 && counter == 0){
+           if(arr2[i]._number !== 14 && counter === 0){
               initialNum = arr2[i]._number;
               counter++;
            }
            if(counter > 0){
-             if(initialNum != arr2[i]._number && arr2[i]._number != 14){
+             if(initialNum !== arr2[i]._number && arr2[i]._number !== 14){
                return false;
              }
            }
@@ -75,7 +93,7 @@ class Homepage extends Component {
   }
 
   isARun(arr1, arr2){
-    if(arr1[0] != -1){
+    if(arr1[0] !== -1){
       let tempArr =[];
       //push each card number into an array to be sorted by
       for(let i = 0; i < arr1.length; i++)
@@ -87,7 +105,7 @@ class Homepage extends Component {
         for(let i = 1; i < tempArr.length; i++){
           let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
-          if(nextNum != (initialNum + i) && nextNum != 14)
+          if(nextNum !== (initialNum + i) && nextNum !== 14)
             return false;
         }
       return true;
@@ -104,7 +122,7 @@ class Homepage extends Component {
         for(let i = 1; i < tempArr.length; i++){
           let nextNum = tempArr[i];
           //verify the next number is one greater then the last, a run
-          if(nextNum != (initialNum + i) && nextNum != 14)
+          if(nextNum !== (initialNum + i) && nextNum !== 14)
             return false;
         }
       return true;
@@ -155,6 +173,8 @@ class Homepage extends Component {
     this.discardPile = [];
     this.currentPlayer = 0; // keeps track globally of which player is up next
     this.p = 0; // temp variable
+    this.topDis = 0;
+    this.handStr = 0;
 
     // controlling the state of number of players and the usernames for each player
   }
@@ -199,6 +219,8 @@ closeModalHandler = () => {
         this.p = new Player(this.refs.user3.value);
         this.playerArr.push(this.p);
         this.setGameInfo();
+        this.handStr = this.playerArr[this.currentPlayer].showHand();
+        this.topDis = this.discardPile[this.discardPile.length - 1]._number;
         this.openModal2Handler(); // opening next modal
     }
 
@@ -359,6 +381,8 @@ closeModal2Handler = () => {
 
 
                         <div>
+                                 <text className="text"> {this.handStr} </text>
+                                <br></br>
                                 <text className="text">Would you like to pick up from the deck or the discard pile? </text>
                                 <text className="text">Enter 0 for deck and 1 for discard pile. </text>
                                 <input type="number" min="0" max="1" name="pickups" ref="pickups" style={{width: "250px"}}/>
@@ -543,7 +567,7 @@ class Player {
 
   moveCardsToBoard1(cardsToMove, origin_array) {
     for (let i = cardsToMove.length - 1; i >= 0; i--) {
-      if(Number(cardsToMove[i]) == origin_array.length - 1){
+      if(Number(cardsToMove[i]) === origin_array.length - 1){
         this._board1.push(origin_array.pop());
       }
       else{
@@ -553,9 +577,9 @@ class Player {
   }
 
   moveCardsToBoard2(cardsToMove, boardOneIndex, origin_array) {
-    if(boardOneIndex[0] == -1){
+    if(boardOneIndex[0] === -1){
      for (let i = cardsToMove.length - 1; i >= 0; i--) {
-      if(Number(cardsToMove[i]) == origin_array.length - 1){
+      if(Number(cardsToMove[i]) === origin_array.length - 1){
         this._board2.push(origin_array.pop());
       }
       else{
@@ -576,7 +600,7 @@ class Player {
       }
       newIndex.sort();
       for (let i = newIndex.length - 1; i >= 0; i--) {
-        if(newIndex[i] == origin_array.length - 1){
+        if(newIndex[i] === origin_array.length - 1){
          this._board2.push(origin_array.pop());
         }
         else{
@@ -587,14 +611,14 @@ class Player {
   }
 
   isBoardEmpty() {
-    return this._board1.length == 0 && this._board2.length == 0;
+    return this._board1.length === 0 && this._board2.length === 0;
   }
 
   draw(decc, discard_pile, choice) {
     let temp1, temp2;
 
     // if we run out of cards to draw from decc
-    if (decc.length == 0) {
+    if (decc.length === 0) {
       // save top card in the discard pile
       temp1 = discard_pile.pop();
 
@@ -619,7 +643,7 @@ class Player {
     temp1 = discard_pile.pop();
 
     // if temp1 is a skip
-    if (temp1._number == 13) {
+    if (temp1._number === 13) {
       // put temp1 back in the discard_pile
       discard_pile.push(temp1);
       // ignore user choice, user must draw from deck
@@ -631,7 +655,7 @@ class Player {
       // put temp1 card back on the discard_pile
       discard_pile.push(temp1);
       // if choice is 1, draw from deck
-      if (choice == 1) {
+      if (choice === 1) {
         this._hand.push(decc.pop());
       }
       // else, pick up from discard_pile
@@ -683,7 +707,7 @@ class Player {
         total += 10;
       }
 
-      else if (number == 13 || number == 14) {
+      else if (number === 13 || number === 14) {
         total += 25;
       }
     }
@@ -716,7 +740,7 @@ class Player {
       printStr += this._hand[i]._number;
       printStr += "  |";
     }
-    alert(printStr);
+    return printStr;
   }
 
   makeSkipTrue() {
@@ -783,7 +807,7 @@ class Deck {
   }
 
   dealCard() {
-    if (this.deck.length == 0) {
+    if (this.deck.length === 0) {
       // add functionality to shuffle discard pile if Cards run out
       console.log("Ran out of cards!\n");
       return;
