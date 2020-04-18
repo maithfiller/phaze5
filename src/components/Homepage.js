@@ -137,12 +137,12 @@ class Homepage extends Component {
       this.currentPlayer++;
       // update handStr with new player
       this.handStr = this.playerArr[this.currentPlayer].showHand();
-    //  this.topDis = this.discardPile[this.discardPile.length - 1]._number;
+      this.topDis = this.discardPile[this.discardPile.length - 1]._number;
 
-this.state.thepickups='';
-this.state.thediscardmove='';
-this.state.thediscardmove2='';
-this.state.thediscard='';
+    this.state.thepickups='';
+    this.state.thediscardmove='';
+    this.state.thediscardmove2='';
+    this.state.thediscard='';
 
     this.openModal2Handler(); // restart the modal sequence
   }
@@ -383,8 +383,7 @@ closeModal2Handler = () => {
         }
         submitHandler = event => {
         this.setState({thepickups: this.refs.pickups.value});
-        console.log(this.refs.pickups.value);
-                        // updating the state of the number of players and each players username
+        // updating the state of the number of players and each players username
         }
         submitHandler2 = event => {
           this.setState({thediscardmove: this.refs.discardmove.value});
@@ -550,8 +549,8 @@ closeModal2Handler = () => {
                                 {/* in the below if statement, we will show the newly picked up card from the deck and then ask the following question */}
                                 {this.state.thepickups === '0' &&
                                   <div>
-
-                                    {this.drawFromDeck()}
+                                  {this.drawFromDeck()}
+                                  {this.state.thepickups=''}
                                     <text className="text"> {this.handStr} </text>
                                     <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
                                     <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
@@ -564,8 +563,8 @@ closeModal2Handler = () => {
                                 {/* in the below if statement, we will show the newly picked up card from the discard and then ask the following question */}
                                 {this.state.thepickups === '1' &&
                                   <div>
-
                                   {this.drawFromDP()}
+                                  {this.state.thepickups=''}
                                   <text className="text"> {this.handStr} </text>
 
                                     <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
@@ -853,6 +852,7 @@ class Player {
 
   sortHand() {
     // selection sort performs fewer swaps than bubble sort
+  //  alert(this._hand.length);
     let i, j, min_idx, len = this._hand.length;
     let temp;
     // one by one move boundary of unsorted subarray
