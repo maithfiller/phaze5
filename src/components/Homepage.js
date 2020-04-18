@@ -144,6 +144,8 @@ class Homepage extends Component {
     this.state.thediscardmove2='';
     this.state.thediscard='';
 
+    this.nextQuestion = 0;
+
     this.openModal2Handler(); // restart the modal sequence
   }
 
@@ -314,8 +316,8 @@ class Homepage extends Component {
                   firstsecond: '',  //first part of phase second card
                   secondsecond: '', //second part of phase second card
                   firstthird: '', //first part of phase third card
-                  secondthird: '', //second part of phase third card
-                  nextquestion: ''
+                  secondthird: '' //second part of phase third card
+                  //nextquestion: ''
                 };
     // member data
     this.playerArr = [];
@@ -325,6 +327,10 @@ class Homepage extends Component {
     this.p = 0; // temp variable
     this.topDis = 0;
     this.handStr = 0;
+    this.nextQuestion = 0;
+    this.board1Str = 0;
+    this.board2Str = 0;
+    this.board3Str = 0;
     // this.tempRes = 0;
     // controlling the state of number of players and the usernames for each player
   }
@@ -402,7 +408,7 @@ closeModal2Handler = () => {
           this.setState({index1: this.refs.firstfirst.value, index2: this.refs.secondfirst.value, index3: this.refs.firstsecond.value,
                           index4: this.refs.secondsecond.value, index5: this.refs.firstthird.value, index6: this.refs.secondthird.value})
           this.checkPhase(this.refs.firstfirst.value,this.refs.firstsecond.value,this.refs.firstthird.value,this.refs.secondfirst.value, this.refs.secondsecond.value, this.refs.secondthird.value)
-          this.state.nextquestion = 1;
+          this.nextQuestion = 1;
           }
 
   render(){
@@ -606,14 +612,14 @@ closeModal2Handler = () => {
                             <button onClick={this.indexcardHandler}> Submit </button>
 
                                   </text>
-                            {/*}{this.state.nextquestion === '1' &&
+                            {this.nextQuestion === 1 &&
                             <div>
                             <text> <text className="text">Would you like to discard or add cards to another players game board? </text>
                             <text className="text">Enter 1 to discard and 2 to lay down cards to another board. </text>
                             <input type="number" min="1" max="2" name="discardmove2" ref="discardmove2" id="discardmove2Id" style={{width: "250px"}}/>
                             <button onClick={this.submitHandler3}> Submit </button> </text>
                             </div>
-                          }*/}
+                          }
 
                                   </div>
                                   }
@@ -645,15 +651,22 @@ closeModal2Handler = () => {
                         {this.state.thediscardmove2 === '2' &&
                         <div>
 
-                        <text> <text className="text"> Enter the player number you wish to discard your cards on. </text>
-                        <input type="text"  name="discardname" ref="discardname" style={{width: "100px"}}/>
+                        <text>
+                        <text className="text"> Enter the player number you wish to discard your cards on </text>
+                        <text className="text"> {this.state.p1} = 1, </text>
+
+                        <text className="text"> {this.state.p2} = 2, </text>
+
+                        <text className="text"> {this.state.p3} = 3. </text>
+
+                        <input type="number" min="1" max="3"  name="discardname" ref="discardname" style={{width: "100px"}}/>
                         <button onClick={this.discardnameHandler}> Submit </button>
-                            </text>
+                        </text>
 
                         </div>
                       }
 
-                      {/* Still must do modal 9 which is showing other players hand */}
+                      {/*this.state.discardnameHandler === "1"*/}
 
                       </div>
 
@@ -915,7 +928,7 @@ class Player {
       printStr += this._board2[i]._number;
       printStr += "  |";
     }
-    alert(printStr);
+    return printStr;
   }
 
   showHand() {
