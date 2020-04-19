@@ -145,6 +145,7 @@ class Homepage extends Component {
     this.state.thediscard='';
 
     this.nextQuestion = 0;
+    this.discardQuestion = 0;
 
     this.openModal2Handler(); // restart the modal sequence
   }
@@ -316,8 +317,16 @@ class Homepage extends Component {
                   firstsecond: '',  //first part of phase second card
                   secondsecond: '', //second part of phase second card
                   firstthird: '', //first part of phase third card
-                  secondthird: '' //second part of phase third card
-                  //nextquestion: ''
+                  secondthird: '', //second part of phase third card
+                  discardnumber: '',  //player number you wish to discard on
+                  thegameboard: '',   // gameboard you want to play on
+                  thenumcards: '',    // number of cards you wish to discard on the gameboard
+                  card1: '',
+                  card2: '',
+                  card3: '',
+                  card4: '',
+                  card5: '',
+                  card6: ''
                 };
     // member data
     this.playerArr = [];
@@ -331,6 +340,7 @@ class Homepage extends Component {
     this.board1Str = 0;
     this.board2Str = 0;
     this.board3Str = 0;
+    this.discardQuestion = 0;
     // this.tempRes = 0;
     // controlling the state of number of players and the usernames for each player
   }
@@ -410,6 +420,54 @@ closeModal2Handler = () => {
           this.checkPhase(this.refs.firstfirst.value,this.refs.firstsecond.value,this.refs.firstthird.value,this.refs.secondfirst.value, this.refs.secondsecond.value, this.refs.secondthird.value)
           this.nextQuestion = 1;
           }
+
+          discardnameHandler = event => {
+            this.setState({discardnumber: this.refs.discardname.value});
+          }
+
+          gameboardHandler = event => {
+            this.setState({thegameboard: this.refs.gameboard.value});
+          }
+
+          numcardsHandler = event => {
+            this.setState({thenumcards: this.refs.numcards.value});
+          }
+
+          cardHandler = event => {
+            this.setState({card1: this.refs.card1.value});
+            this.discardQuestion = 1;
+          }
+
+          cardHandler2 = event => {
+            this.setState({card1: this.refs.card1.value});
+            this.setState({card2: this.refs.card2.value});
+            this.discardQuestion = 1;
+          }
+
+          cardHandler3 = event => {
+            this.setState({card1: this.refs.card1.value});
+            this.setState({card2: this.refs.card2.value});
+            this.setState({card3: this.refs.card3.value});
+            this.discardQuestion = 1;
+          }
+
+          cardHandler4 = event => {
+            this.setState({card1: this.refs.card1.value});
+            this.setState({card2: this.refs.card2.value});
+            this.setState({card3: this.refs.card3.value});
+            this.setState({card4: this.refs.card4.value});
+            this.discardQuestion = 1;
+          }
+
+          cardHandler5 = event => {
+            this.setState({card1: this.refs.card1.value});
+            this.setState({card2: this.refs.card2.value});
+            this.setState({card3: this.refs.card3.value});
+            this.setState({card4: this.refs.card4.value});
+            this.setState({card5: this.refs.card5.value});
+            this.discardQuestion = 1;
+          }
+
 
   render(){
 
@@ -666,7 +724,127 @@ closeModal2Handler = () => {
                         </div>
                       }
 
-                      {/*this.state.discardnameHandler === "1"*/}
+
+                      {/* show gameboard for player 1*/}
+                      {this.state.discardnumber === '1' &&
+                      <div>
+                      <text>
+                      <text className="text"> Would you like to play on gameboard 1 or 2?</text>
+                      <input type="number" min="1" max="2"  name="gameboard" ref="gameboard" style={{width: "100px"}}/>
+                      <button onClick={this.gameboardHandler}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {/* show gameboard for player 2*/}
+                      {this.state.discardnumber === '2' &&
+                      <div>
+                      <text>
+                      <text className="text"> Would you like to play on gameboard 1 or 2?</text>
+                      <input type="number" min="1" max="2"  name="gameboard" ref="gameboard" style={{width: "100px"}}/>
+                      <button onClick={this.gameboardHandler}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {/* show gameboard for player 3*/}
+                      {this.state.discardnumber === '3' &&
+                      <div>
+                      <text>
+                      <text className="text"> Would you like to play on gameboard 1 or 2?</text>
+                      <input type="number" min="1" max="2"  name="gameboard" ref="gameboard" style={{width: "100px"}}/>
+                      <button onClick={this.gameboardHandler}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {this.state.thegameboard === '1' || this.state.thegameboard === '2' &&
+                      <div>
+                      <text>
+                      <text className="text"> How many cards would you like to lay down on this gameboard? </text>
+                      <input type="number" min="1" max="5"  name="numcards" ref="numcards" style={{width: "100px"}}/>
+                      <button onClick={this.numcardsHandler}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {/* this is the if statement for putting down one card to the players gameboard */}
+                      {this.state.thenumcards === '1' &&
+                      <div>
+                      <text>
+                      <text className="text"> Enter the index of the card you wish to lay down. </text>
+                      <input type="number" min="0" max="4"  name="card1" ref="card1" style={{width: "100px"}}/>
+                      <button onClick={this.cardHandler}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {this.state.thenumcards === '2' &&
+                      <div>
+                      <text>
+                      <text className="text"> Enter the indices of the card you wish to lay down. </text>
+                      <input type="number" min="0" max="4"  name="card1" ref="card1" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card2" ref="card2" style={{width: "100px"}}/>
+                      <button onClick={this.cardHandler2}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+
+                      {this.state.thenumcards === '3' &&
+                      <div>
+                      <text>
+                      <text className="text"> Enter the indices of the card you wish to lay down. </text>
+                      <input type="number" min="0" max="4"  name="card1" ref="card1" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card2" ref="card2" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card3" ref="card3" style={{width: "100px"}}/>
+                      <button onClick={this.cardHandler3}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {this.state.thenumcards === '4' &&
+                      <div>
+                      <text>
+                      <text className="text"> Enter the indices of the card you wish to lay down. </text>
+                      <input type="number" min="0" max="4"  name="card1" ref="card1" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card2" ref="card2" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card3" ref="card3" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card4" ref="card4" style={{width: "100px"}}/>
+                      <button onClick={this.cardHandler4}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {this.state.thenumcards === '5' &&
+                      <div>
+                      <text>
+                      <text className="text"> Enter the indices of the card you wish to lay down. </text>
+                      <input type="number" min="0" max="4"  name="card1" ref="card1" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card2" ref="card2" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card3" ref="card3" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card4" ref="card4" style={{width: "100px"}}/>
+                      <input type="number" min="0" max="4"  name="card5" ref="card5" style={{width: "100px"}}/>
+                      <button onClick={this.cardHandler5}> Submit </button>
+                      </text>
+                      </div>
+                      }
+
+                      {this.discardQuestion === 1 &&
+                        <div>
+
+                        <text> <text className="text"> Enter the index of the card you want to discard. </text>
+                        <input type="number" min="0" max="10" name="discard" ref="discard" id="discardId" style={{width: "50px"}}/>
+                        <button onClick={this.discardsubmitHandler}> Submit </button>
+                            </text>
+
+                        </div>
+                      }
+
+
+
+
+
 
                       </div>
 
