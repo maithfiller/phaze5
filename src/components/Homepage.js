@@ -22,6 +22,18 @@ class Homepage extends Component {
     }
   }
 
+  playerBoards(){
+    let printStr = "";
+    for (let i = 0; i < this.playerArr.length; i++){
+      printStr += this.playerArr[i].showBoards();
+      if (i != this.playerArr.length -1)
+        printStr += ", ";
+      else
+        printStr += ". ";
+    }
+    this.boardStr = printStr; // updating boardStr with new player boards
+  }
+
   drawFromDeck(){
     this.playerArr[this.currentPlayer].draw(this.gameDeck, this.discardPile, 1)
     this.playerArr[this.currentPlayer].sortHand();
@@ -337,9 +349,7 @@ class Homepage extends Component {
     this.topDis = 0;
     this.handStr = 0;
     this.nextQuestion = 0;
-    this.board1Str = 0;
-    this.board2Str = 0;
-    this.board3Str = 0;
+    this.boardStr = 0; // string to hold player boards
     this.discardQuestion = 0;
     // this.tempRes = 0;
     // controlling the state of number of players and the usernames for each player
@@ -419,6 +429,7 @@ closeModal2Handler = () => {
                           index4: this.refs.secondsecond.value, index5: this.refs.firstthird.value, index6: this.refs.secondthird.value})
           this.checkPhase(this.refs.firstfirst.value,this.refs.firstsecond.value,this.refs.firstthird.value,this.refs.secondfirst.value, this.refs.secondsecond.value, this.refs.secondthird.value)
           this.nextQuestion = 1;
+          this.handStr = this.playerArr[this.currentPlayer].showHand(); // updating handStr after player makes phase
           }
 
           discardnameHandler = event => {
@@ -672,6 +683,7 @@ closeModal2Handler = () => {
                                   </text>
                             {this.nextQuestion === 1 &&
                             <div>
+                            <text className="text"> {this.handStr} </text>
                             <text> <text className="text">Would you like to discard or add cards to another players game board? </text>
                             <text className="text">Enter 1 to discard and 2 to lay down cards to another board. </text>
                             <input type="number" min="1" max="2" name="discardmove2" ref="discardmove2" id="discardmove2Id" style={{width: "250px"}}/>
@@ -708,7 +720,8 @@ closeModal2Handler = () => {
                         {/* Technically Modal 7/8 and this needs to show other players hands!*/}
                         {this.state.thediscardmove2 === '2' &&
                         <div>
-
+                        {this.playerBoards()}
+                        <text className="text"> {this.boardStr} </text>
                         <text>
                         <text className="text"> Enter the player number you wish to discard your cards on </text>
                         <text className="text"> {this.state.p1} = 1, </text>
@@ -1094,6 +1107,11 @@ class Player {
   showBoards() {
     // board 1
     let printStr = this._name + "'s" + " boards: ";
+    if (this._board1.length == 0){
+      printStr += "empty";
+      return printStr
+    }
+
     for (let i = 0; i < this._board1.length; i++) {
       printStr += "|  ";
       printStr += this._board1[i]._number;
