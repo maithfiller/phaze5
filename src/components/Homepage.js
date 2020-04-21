@@ -49,8 +49,11 @@ class Homepage extends Component {
   boardHit(playerNum, playerBoard, cardIndices){
 
     let hitSet = [];
+    alert("PlayerNum: " + playerNum);
+    alert("Player Board: " + playerBoard);
+    alert("card index: " + cardIndices[0]);
 
-    if (playerBoard === 1){
+    if (playerBoard == 1){
       for(let m = 0; m < this.playerArr[playerNum - 1].board1.length; m++)
         hitSet.push(this.playerArr[playerNum - 1].board1[m]);
     }
@@ -67,6 +70,9 @@ class Homepage extends Component {
           let temp2 = this.playerArr[this.currentPlayer].valueOf(cardIndices[counter]);
           hitSet.push(temp2);
         }
+        for(let i = 0; i < hitSet.length; i++){
+          alert(hitSet[i]._number)
+        }
         if(this.isARun(foo,hitSet) == true || this.isASet(foo,hitSet) == true){
           this.playerArr[playerNum - 1].moveCardsToBoard1(cardIndices,this.playerArr[this.currentPlayer]._hand);
         }
@@ -82,7 +88,7 @@ class Homepage extends Component {
           hitSet.push(temp2);
         }
         if(this.isARun(foo,hitSet) == true || this.isASet(foo,hitSet) == true){
-          this.playerArr[playerNum - 1].moveCardsToBoard2(cardIndices,foo, this.playerArr[this.currentPlayer]._hand);
+          this.playerArr[playerNum - 1].moveCardsToBoard2(cardIndices, foo, this.playerArr[this.currentPlayer]._hand);
         }
         else{
           let printStr = "Sorry! That doesn't qualify. Next Player's turn!\n ";
@@ -212,13 +218,13 @@ class Homepage extends Component {
     this.state.thediscardmove2='';
     this.state.thediscard='';
     this.state.discardnumber='';
-    this.state.thegameboard=''
-    this.state.thenumcards=''
-    this.state.thecard1=''
-    this.state.thecard2=''
-    this.state.thecard3=''
-    this.state.thecard4=''
-    this.state.thecard5=''
+    this.state.thegameboard='';
+    this.state.thenumcards='';
+    this.state.thecard1='';
+    this.state.thecard2='';
+    this.state.thecard3='';
+    this.state.thecard4='';
+    this.state.thecard5='';
 
 
     this.nextQuestion = 0;
@@ -297,10 +303,15 @@ class Homepage extends Component {
       this.gameDeck = new Deck();
       this.discardPile = [];
       this.discardPile.push(this.gameDeck.dealCard());
+      // re-deals 10 cards to each player
       for(let p = 0; p < 10; p++){
         for(let k = 0; k < this.playerArr.length; k++){
           this.playerArr[k].draw(this.gameDeck, this.discardPile, 1)
           }
+      }
+      // sorts each player's hand initially
+      for (let i = 0; i < this.playerArr.length; i++){
+        this.playerArr[i].sortHand();
       }
 
       this.currentPlayer = 0; // reset current player
@@ -591,7 +602,7 @@ closeModal2Handler = () => {
             this.indexArray.push(this.refs.card1.value);
             // cont. here
             this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
-
+            this.handStr = this.playerArr[this.currentPlayer].showHand();
             this.discardQuestion = 1;
           }
 
@@ -601,6 +612,7 @@ closeModal2Handler = () => {
             this.indexArray.push(this.refs.card1.value);
             this.indexArray.push(this.refs.card2.value);
             this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
+            this.handStr = this.playerArr[this.currentPlayer].showHand();
             this.discardQuestion = 1;
           }
 
@@ -612,6 +624,7 @@ closeModal2Handler = () => {
             this.indexArray.push(this.refs.card2.value);
             this.indexArray.push(this.refs.card3.value);
             this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
+            this.handStr = this.playerArr[this.currentPlayer].showHand();
             this.discardQuestion = 1;
           }
 
@@ -625,6 +638,7 @@ closeModal2Handler = () => {
             this.indexArray.push(this.refs.card3.value);
             this.indexArray.push(this.refs.card4.value);
             this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
+            this.handStr = this.playerArr[this.currentPlayer].showHand();
             this.discardQuestion = 1;
           }
 
@@ -640,7 +654,7 @@ closeModal2Handler = () => {
             this.indexArray.push(this.refs.card4.value);
             this.indexArray.push(this.refs.card5.value);
             this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
-
+            this.handStr = this.playerArr[this.currentPlayer].showHand();
             this.discardQuestion = 1;
           }
 
@@ -1031,7 +1045,9 @@ closeModal2Handler = () => {
                       {this.discardQuestion === 1 &&
                         <div>
 
-                        <text> <text className="text"> Enter the index of the card you want to discard. </text>
+                        <text>
+                        <text className="text"> {this.handStr} </text>
+                        <text className="text"> Enter the index of the card you want to discard. </text>
                         <input type="number" min="0" max="10" name="discard" ref="discard" id="discardId" style={{width: "50px"}}/>
                         <button onClick={this.discardsubmitHandler}> Submit </button>
                             </text>
@@ -1137,7 +1153,7 @@ class Player {
   valueOf(i){
   return this._hand[i];
   }
-
+// cont.
   moveCardsToBoard1(cardsToMove, origin_array) {
     for (let i = cardsToMove.length - 1; i >= 0; i--) {
       if(Number(cardsToMove[i]) === origin_array.length - 1){
