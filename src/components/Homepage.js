@@ -82,7 +82,7 @@ class Homepage extends Component {
           hitSet.push(temp2);
         }
         if(this.isARun(foo,hitSet) == true || this.isASet(foo,hitSet) == true){
-          this.playerArr[playerNum - 1].moveCardsToBoard2(cardIndices,this.playerArr[this.currentPlayer]._hand);
+          this.playerArr[playerNum - 1].moveCardsToBoard2(cardIndices,foo, this.playerArr[this.currentPlayer]._hand);
         }
         else{
           let printStr = "Sorry! That doesn't qualify. Next Player's turn!\n ";
@@ -214,11 +214,11 @@ class Homepage extends Component {
     this.state.discardnumber='';
     this.state.thegameboard=''
     this.state.thenumcards=''
-    this.state.card1=''
-    this.state.card2=''
-    this.state.card3=''
-    this.state.card4=''
-    this.state.card5=''
+    this.state.thecard1=''
+    this.state.thecard2=''
+    this.state.thecard3=''
+    this.state.thecard4=''
+    this.state.thecard5=''
 
 
     this.nextQuestion = 0;
@@ -322,11 +322,11 @@ class Homepage extends Component {
       this.state.discardnumber='';
       this.state.thegameboard=''
       this.state.thenumcards=''
-      this.state.card1=''
-      this.state.card2=''
-      this.state.card3=''
-      this.state.card4=''
-      this.state.card5=''
+      this.state.thecard1=''
+      this.state.thecard2=''
+      this.state.thecard3=''
+      this.state.thecard4=''
+      this.state.thecard5=''
 
 
       this.nextQuestion = 0;
@@ -469,11 +469,11 @@ class Homepage extends Component {
                   discardnumber: '',  //player number you wish to discard on
                   thegameboard: '',   // gameboard you want to play on
                   thenumcards: '',    // number of cards you wish to discard on the gameboard
-                  card1: '',
-                  card2: '',
-                  card3: '',
-                  card4: '',
-                  card5: ''
+                  thecard1: '',
+                  thecard2: '',
+                  thecard3: '',
+                  thecard4: '',
+                  thecard5: ''
                 };
     // member data
     this.playerArr = [];
@@ -587,7 +587,7 @@ closeModal2Handler = () => {
           }
 
           cardHandler = event => {
-            this.setState({card1: this.refs.card1.value});
+            this.setState({thecard1: this.refs.card1.value});
             this.indexArray.push(this.refs.card1.value);
             // cont. here
             this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
@@ -596,8 +596,8 @@ closeModal2Handler = () => {
           }
 
           cardHandler2 = event => {
-            this.setState({card1: this.refs.card1.value});
-            this.setState({card2: this.refs.card2.value});
+            this.setState({thecard1: this.refs.card1.value});
+            this.setState({thecard2: this.refs.card2.value});
             this.indexArray.push(this.refs.card1.value);
             this.indexArray.push(this.refs.card2.value);
             this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
@@ -605,9 +605,9 @@ closeModal2Handler = () => {
           }
 
           cardHandler3 = event => {
-            this.setState({card1: this.refs.card1.value});
-            this.setState({card2: this.refs.card2.value});
-            this.setState({card3: this.refs.card3.value});
+            this.setState({thecard1: this.refs.card1.value});
+            this.setState({thecard2: this.refs.card2.value});
+            this.setState({thecard3: this.refs.card3.value});
             this.indexArray.push(this.refs.card1.value);
             this.indexArray.push(this.refs.card2.value);
             this.indexArray.push(this.refs.card3.value);
@@ -616,10 +616,10 @@ closeModal2Handler = () => {
           }
 
           cardHandler4 = event => {
-            this.setState({card1: this.refs.card1.value});
-            this.setState({card2: this.refs.card2.value});
-            this.setState({card3: this.refs.card3.value});
-            this.setState({card4: this.refs.card4.value});
+            this.setState({thecard1: this.refs.card1.value});
+            this.setState({thecard2: this.refs.card2.value});
+            this.setState({thecard3: this.refs.card3.value});
+            this.setState({thecard4: this.refs.card4.value});
             this.indexArray.push(this.refs.card1.value);
             this.indexArray.push(this.refs.card2.value);
             this.indexArray.push(this.refs.card3.value);
@@ -629,11 +629,11 @@ closeModal2Handler = () => {
           }
 
           cardHandler5 = event => {
-            this.setState({card1: this.refs.card1.value});
-            this.setState({card2: this.refs.card2.value});
-            this.setState({card3: this.refs.card3.value});
-            this.setState({card4: this.refs.card4.value});
-            this.setState({card5: this.refs.card5.value});
+            this.setState({thecard1: this.refs.card1.value});
+            this.setState({thecard2: this.refs.card2.value});
+            this.setState({thecard3: this.refs.card3.value});
+            this.setState({thecard4: this.refs.card4.value});
+            this.setState({thecard5: this.refs.card5.value});
             this.indexArray.push(this.refs.card1.value);
             this.indexArray.push(this.refs.card2.value);
             this.indexArray.push(this.refs.card3.value);
