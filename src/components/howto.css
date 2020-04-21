@@ -2,9 +2,12 @@
 .heading{
   font-family: sans-serif;
   margin-left: 40%;
-  color: #6495ED;
+  font-style: bold;
+  color: navy;
 }
 
-/*.background{
-  background-color: #FFF0F5;
-}*/
+
+.background{
+  background-color: white;
+  opacity: 50%;
+}

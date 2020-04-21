@@ -5,9 +5,9 @@ import './howto.css'
  class HowToPlay extends Component {
    render (){
   return(
-    <div>
+    <div className="background">
     <h1 className="heading"> How To Play Phaze 5 </h1>
-    <ol>1. Decide on how many of your best friends you wnat to play with and choose a username for each player!</ol>
+    <ol>1. Decide on how many of your best friends you want to play with and choose a username for each player!</ol>
     <ol>2. If it is your turn...</ol>
     <ol>     - you can decide to either pick up a card from the deck or pick up the last card that was placed in the discard pile </ol>
     <ol>     - after you pick up a card then make your move </ol>

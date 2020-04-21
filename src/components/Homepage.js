@@ -49,9 +49,9 @@ class Homepage extends Component {
   boardHit(playerNum, playerBoard, cardIndices) {
 
     let hitSet = [];
-    alert("PlayerNum: " + playerNum);
-    alert("Player Board: " + playerBoard);
-    alert("card index: " + cardIndices[0]);
+    //alert("PlayerNum: " + playerNum);
+    //alert("Player Board: " + playerBoard);
+    //alert("card index: " + cardIndices[0]);
 
     if (playerBoard == 1) {
       for (let m = 0; m < this.playerArr[playerNum - 1].board1.length; m++)
@@ -70,9 +70,9 @@ class Homepage extends Component {
         let temp2 = this.playerArr[this.currentPlayer].valueOf(cardIndices[counter]);
         hitSet.push(temp2);
       }
-      for (let i = 0; i < hitSet.length; i++) {
-        alert(hitSet[i]._number)
-      }
+      //for (let i = 0; i < hitSet.length; i++) {
+      //  alert(hitSet[i]._number)
+      //  }
       if (this.isARun(foo, hitSet) || this.isASet(foo, hitSet)) {
         this.playerArr[playerNum - 1].moveCardsToBoard1(cardIndices, this.playerArr[this.currentPlayer]._hand);
       }
@@ -272,7 +272,7 @@ class Homepage extends Component {
           playerHolder.push(k);
         }
       }
-      if (phaze2Cnt == 1) {
+
         let printStr = "Congratulations!! Player " + this.playerArr[playerHolder[0]].name + " is the first one to finish Phaze 2, and is our official winner!!";
         alert(printStr);
         let printStr2 = "Final Scoreboard: \n";
@@ -281,16 +281,16 @@ class Homepage extends Component {
           printStr2 = printStr2 + "Player " + m + ": " + this.playerArr[k].points + "\n";
         }
         alert(printStr2);
-      }
-      else {
+
+      /*else {
         let printStr = "Final Scoreboard: \n";
         for (let k = 0; k < this.playerArr.length; k++) {
           let m = k + 1;
           printStr = printStr + "Player " + m + ": " + this.playerArr[k].points + "\n";
         }
         alert(printStr);
-        let printStr2 = "Looks like we have a tie!! The winner will be decided by the one with the least points!\n";
-        alert(printStr2);
+        // printStr2 = "Looks like we have a tie!! The winner will be decided by the one with the least points!\n";
+        // alert(printStr2);
         let scoreHolder = [];
         for (let k = 0; k < playerHolder.length; k++) {
           scoreHolder.push(this.playerArr[playerHolder[k]].points);
@@ -298,7 +298,7 @@ class Homepage extends Component {
         scoreHolder.sort(function (a, b) { return a - b });
         let printStr3 = "Congratulations!! Player " + this.playerArr[playerHolder[0]].name + " is the first one to finish Phaze 2 with the least amount of points, and is our official winner!!"
         alert(printStr3);
-      }
+      }*/
 
     }
     else {
@@ -603,6 +603,8 @@ class Homepage extends Component {
       index4: this.refs.secondsecond.value, index5: this.refs.firstthird.value, index6: this.refs.secondthird.value
     })
     this.checkPhase(this.refs.firstfirst.value, this.refs.firstsecond.value, this.refs.firstthird.value, this.refs.secondfirst.value, this.refs.secondsecond.value, this.refs.secondthird.value)
+    this.sortRun(this.playerArr[this.currentPlayer].board1);
+    this.sortRun(this.playerArr[this.currentPlayer].board2);
     this.nextQuestion = 1;
     this.handStr = this.playerArr[this.currentPlayer].showHand(); // updating handStr after player makes phase
     this.phaseStr = this.playerArr[this.currentPlayer]._phase;
@@ -628,6 +630,8 @@ class Homepage extends Component {
     this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.discardQuestion = 1;
+    this.sortRun(this.playerArr[this.currentPlayer].board1);
+    this.sortRun(this.playerArr[this.currentPlayer].board2);
   }
 
   cardHandler2 = event => {
@@ -638,6 +642,8 @@ class Homepage extends Component {
     this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.discardQuestion = 1;
+    this.sortRun(this.playerArr[this.currentPlayer].board1);
+    this.sortRun(this.playerArr[this.currentPlayer].board2);
   }
 
   cardHandler3 = event => {
@@ -650,6 +656,8 @@ class Homepage extends Component {
     this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.discardQuestion = 1;
+    this.sortRun(this.playerArr[this.currentPlayer].board1);
+    this.sortRun(this.playerArr[this.currentPlayer].board2);
   }
 
   cardHandler4 = event => {
@@ -664,6 +672,8 @@ class Homepage extends Component {
     this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.discardQuestion = 1;
+    this.sortRun(this.playerArr[this.currentPlayer].board1);
+    this.sortRun(this.playerArr[this.currentPlayer].board2);
   }
 
   cardHandler5 = event => {
@@ -680,6 +690,8 @@ class Homepage extends Component {
     this.boardHit(this.refs.discardname.value, this.refs.gameboard.value, this.indexArray);
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.discardQuestion = 1;
+    this.sortRun(this.playerArr[this.currentPlayer].board1);
+    this.sortRun(this.playerArr[this.currentPlayer].board2);
   }
 
 
@@ -898,7 +910,7 @@ class Homepage extends Component {
                   {this.nextQuestion === 1 &&
                     <div>
                       <text className="text"> {this.handStr} </text>
-                      <text> <text className="text">Would you like to discard or add cards to another players game board? </text>
+                      <text> <text className="text">Would you like to discard or add cards to a players existing game board? </text>
                         <text className="text">Enter 1 to discard and 2 to lay down cards to another board. </text>
                         <input type="number" min="1" max="2" name="discardmove2" ref="discardmove2" id="discardmove2Id" style={{ width: "250px" }} />
                         <button onClick={this.submitHandler3}> Submit </button> </text>
@@ -911,7 +923,7 @@ class Homepage extends Component {
               {this.state.thediscardmove === '0' &&
                 <div>
 
-                  <text> <text className="text">Would you like to discard or add cards to another players game board? </text>
+                  <text> <text className="text">Would you like to discard or add cards to a players existing game board? </text>
                     <text className="text">Enter 1 to discard and 2 to lay down cards to another board. </text>
                     <input type="number" min="1" max="2" name="discardmove2" ref="discardmove2" id="discardmove2Id" style={{ width: "250px" }} />
                     <button onClick={this.submitHandler3}> Submit </button> </text>
