@@ -40,11 +40,15 @@ text on the homepage */
 
 .button{
   color: blue;
-  padding-left: .90%;
+  padding-left: 3%;
 }
 
 .create{
   position: absolute;
   bottom: 20px;
   right: 260px;
+  font-size: 150%;
+  font-weight: bold;
+  color: black;
+
 }
