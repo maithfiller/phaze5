@@ -12,7 +12,7 @@ const modal2 = (props) => {
                     opacity: props.show ? '1' : '0'
                 }}>
                 <div className="modal-header">
-                    <h3>PickUpModal</h3>
+                    <h3>Phaze 5 Game!</h3>
                 </div>
                 <div className="modal-body">
                     <p>
