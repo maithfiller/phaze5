@@ -885,7 +885,7 @@ class Homepage extends Component {
                   <text className="text"> {this.handStr} </text>
 
                   <text> <text className="text">Would you like to put down cards (discard/existing board) or make your initial phase? </text>
-                    <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
+                    <text className="text">Enter 1 to make your initial phase and 0 to put down cards. </text>
                     <input type="number" min="0" max="1" name="discardmove" ref="discardmove" id="discardmoveId" style={{ width: "250px" }} />
                     <button onClick={this.submitHandler2}> Submit </button> </text>
 
