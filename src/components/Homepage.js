@@ -230,6 +230,7 @@ class Homepage extends Component {
     // update variables
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.topDis = this.discardPile[this.discardPile.length - 1]._number;
+    this.topDis = this.initDis(this.topDis);
     this.phaseStr = this.playerArr[this.currentPlayer]._phase;
     this.boardStr = this.playerBoards();
     this.indexArray = [];
@@ -252,6 +253,20 @@ class Homepage extends Component {
     this.discardQuestion = 0;
 
     this.openModal2Handler(); // restart the modal sequence
+  }
+
+  initDis(num) {
+    let temp = '';
+    if(num == 13){
+      temp = "S";
+    }
+    else if(num == 14){
+      temp = "W";
+    }
+    else{
+      temp = num;
+    }
+    return temp;
   }
 
   endOfRound() {
@@ -343,6 +358,7 @@ class Homepage extends Component {
       // update variables
       this.handStr = this.playerArr[this.currentPlayer].showHand();
       this.topDis = this.discardPile[this.discardPile.length - 1]._number;
+      this.topDis = this.initDis(this.topDis);
       this.phaseStr = this.playerArr[this.currentPlayer]._phase;
       this.boardStr = this.playerBoards();
       this.indexArray = [];
@@ -529,7 +545,6 @@ class Homepage extends Component {
   submitFormHandler = event => {
     event.preventDefault();
     this.setState({ numplayers: this.refs.players.value });
-    console.log(this.state.p1.value);
     // updating the state of the number of players and each players username
   }
 
@@ -567,6 +582,7 @@ class Homepage extends Component {
     this.setGameInfo();
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.topDis = this.discardPile[this.discardPile.length - 1]._number;
+    this.topDis = this.initDis(this.topDis);
     this.phaseStr = this.playerArr[this.currentPlayer]._phase;
     this.boardStr = this.playerBoards();
     this.openModal2Handler(); // opening next modal
@@ -853,7 +869,7 @@ class Homepage extends Component {
 
                   {this.state.thepickups = ''}
                   <text className="text"> {this.handStr} </text>
-                  <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
+                  <text> <text className="text">Would you like to put down cards (discard/existing board) or make your inital phase? </text>
                     <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
                     <input type="number" min="0" max="1" name="discardmove" ref="discardmove" id="discardmoveId" style={{ width: "250px" }} />
                     <button onClick={this.submitHandler2}> Submit </button> </text>
@@ -868,7 +884,7 @@ class Homepage extends Component {
                   {this.state.thepickups = ''}
                   <text className="text"> {this.handStr} </text>
 
-                  <text> <text className="text">Would you like to put down cards (discard/another board) or add cards to your game board? </text>
+                  <text> <text className="text">Would you like to put down cards (discard/existing board) or make your initial phase? </text>
                     <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
                     <input type="number" min="0" max="1" name="discardmove" ref="discardmove" id="discardmoveId" style={{ width: "250px" }} />
                     <button onClick={this.submitHandler2}> Submit </button> </text>
@@ -1351,14 +1367,30 @@ class Player {
 
     for (let i = 0; i < this._board1.length; i++) {
       printStr += "|  ";
+      if(this._board1[i]._number == 13){
+        printStr += "S";
+      }
+      else if(this._board1[i]._number == 14){
+        printStr += "W";
+      }
+      else{
       printStr += this._board1[i]._number;
+      }
       printStr += "  |";
     }
     // board 2
     printStr += "  &  ";
     for (let i = 0; i < this._board2.length; i++) {
       printStr += "|  ";
+      if(this._board2[i]._number == 13){
+        printStr += "S";
+      }
+      else if(this._board2[i]._number == 14){
+        printStr += "W";
+      }
+      else{
       printStr += this._board2[i]._number;
+      }
       printStr += "  |";
     }
     return printStr;
@@ -1368,7 +1400,15 @@ class Player {
     let printStr = this._name + "'s" + " hand: ";
     for (let i = 0; i < this._hand.length; i++) {
       printStr += "|  ";
+      if(this._hand[i]._number == 13){
+        printStr += "S";
+      }
+      else if(this._hand[i]._number == 14){
+        printStr += "W";
+      }
+      else{
       printStr += this._hand[i]._number;
+      }
       printStr += "  |";
     }
     return printStr;
