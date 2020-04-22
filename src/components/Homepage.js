@@ -288,32 +288,15 @@ class Homepage extends Component {
         }
       }
 
-        let printStr = "Congratulations!! Player " + this.playerArr[playerHolder[0]].name + " is the first one to finish Phaze 2, and is our official winner!!";
+        let printStr = "Congratulations!! " + this.playerArr[playerHolder[0]].name + " is our official winner!!";
         alert(printStr);
+        
         let printStr2 = "Final Scoreboard: \n";
         for (let k = 0; k < this.playerArr.length; k++) {
           let m = k + 1;
           printStr2 = printStr2 + "Player " + m + ": " + this.playerArr[k].points + "\n";
         }
         alert(printStr2);
-
-      /*else {
-        let printStr = "Final Scoreboard: \n";
-        for (let k = 0; k < this.playerArr.length; k++) {
-          let m = k + 1;
-          printStr = printStr + "Player " + m + ": " + this.playerArr[k].points + "\n";
-        }
-        alert(printStr);
-        // printStr2 = "Looks like we have a tie!! The winner will be decided by the one with the least points!\n";
-        // alert(printStr2);
-        let scoreHolder = [];
-        for (let k = 0; k < playerHolder.length; k++) {
-          scoreHolder.push(this.playerArr[playerHolder[k]].points);
-        }
-        scoreHolder.sort(function (a, b) { return a - b });
-        let printStr3 = "Congratulations!! Player " + this.playerArr[playerHolder[0]].name + " is the first one to finish Phaze 2 with the least amount of points, and is our official winner!!"
-        alert(printStr3);
-      }*/
 
     }
     else {
@@ -870,7 +853,7 @@ class Homepage extends Component {
                   {this.state.thepickups = ''}
                   <text className="text"> {this.handStr} </text>
                   <text> <text className="text">Would you like to put down cards (discard/existing board) or make your inital phase? </text>
-                    <text className="text">Enter 1 to lay down cards to your game board and 0 to put down cards. </text>
+                    <text className="text">Enter 1 to make your initial phase and 0 to put down cards. </text>
                     <input type="number" min="0" max="1" name="discardmove" ref="discardmove" id="discardmoveId" style={{ width: "250px" }} />
                     <button onClick={this.submitHandler2}> Submit </button> </text>
 
@@ -927,7 +910,7 @@ class Homepage extends Component {
                     <div>
                       <text className="text"> {this.handStr} </text>
                       <text> <text className="text">Would you like to discard or add cards to a players existing game board? </text>
-                        <text className="text">Enter 1 to discard and 2 to lay down cards to another board. </text>
+                        <text className="text">Enter 1 to discard and 2 to lay down cards to an existing board. </text>
                         <input type="number" min="1" max="2" name="discardmove2" ref="discardmove2" id="discardmove2Id" style={{ width: "250px" }} />
                         <button onClick={this.submitHandler3}> Submit </button> </text>
                     </div>
@@ -940,7 +923,7 @@ class Homepage extends Component {
                 <div>
 
                   <text> <text className="text">Would you like to discard or add cards to a players existing game board? </text>
-                    <text className="text">Enter 1 to discard and 2 to lay down cards to another board. </text>
+                    <text className="text">Enter 1 to discard and 2 to lay down cards to an existing board. </text>
                     <input type="number" min="1" max="2" name="discardmove2" ref="discardmove2" id="discardmove2Id" style={{ width: "250px" }} />
                     <button onClick={this.submitHandler3}> Submit </button> </text>
 

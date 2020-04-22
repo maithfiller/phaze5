@@ -24,7 +24,7 @@ import './howto.css'
     <ol> To do this... </ol>
     <ol> Cards 1-9 are worth 5 points </ol>
     <ol> Cards 10-12 are worth 10 points </ol>
-    <ol> Skip (13/S) and Wild cards (14/W) are worth 25 points! </ol>
+    <ol> Skip (S) and Wild cards (W) are worth 25 points! </ol>
     </div>
 );
 }
