@@ -22,6 +22,64 @@ class Homepage extends Component {
     }
   }
 
+  setPlayers(){
+    let temp = 0;
+    if (this.state.numplayers == 1){
+      temp = new Player(this.refs.user1.value);
+      this.playerArr.push(temp);
+    }
+    else if (this.state.numplayers == 2){
+      temp = new Player(this.refs.user1.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user2.value);
+      this.playerArr.push(temp);
+    }
+    else if (this.state.numplayers == 3){
+      temp = new Player(this.refs.user1.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user2.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user3.value);
+      this.playerArr.push(temp);
+    }
+    else if (this.state.numplayers == 4){
+      temp = new Player(this.refs.user1.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user2.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user3.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user4.value);
+      this.playerArr.push(temp);
+    }
+    else if (this.state.numplayers == 5){
+      temp = new Player(this.refs.user1.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user2.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user3.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user4.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user5.value);
+      this.playerArr.push(temp);
+    }
+    else {// 6 players
+      temp = new Player(this.refs.user1.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user2.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user3.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user4.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user5.value);
+      this.playerArr.push(temp);
+      temp = new Player(this.refs.user6.value);
+      this.playerArr.push(temp);
+    }
+  }
+
   playerBoards() {
     let printStr = "";
     for (let i = 0; i < this.playerArr.length; i++) {
@@ -569,12 +627,7 @@ class Homepage extends Component {
     });
     this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value, p3: this.refs.user3.value });
 
-    this.p = new Player(this.refs.user1.value);
-    this.playerArr.push(this.p);
-    this.p = new Player(this.refs.user2.value);
-    this.playerArr.push(this.p);
-    this.p = new Player(this.refs.user3.value);
-    this.playerArr.push(this.p);
+    this.setPlayers();
     this.setGameInfo();
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.topDis = this.discardPile[this.discardPile.length - 1]._number;
