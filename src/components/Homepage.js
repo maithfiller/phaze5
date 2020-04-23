@@ -79,6 +79,21 @@ class Homepage extends Component {
       this.playerArr.push(temp);
     }
   }
+  showPlayerNumbers(){
+    let tempStr = '';
+    for (let i = 0; i < this.playerArr.length; i++){
+      let temp = 1 + i;
+      tempStr += this.playerArr[i].name;
+      tempStr += " = ";
+      tempStr += temp;
+      if (i == this.playerArr.length - 1)
+        tempStr += ". ";
+      else {
+        tempStr += ", ";
+      }
+    }
+    return tempStr;
+  }
 
   playerBoards() {
     let printStr = "";
@@ -289,6 +304,8 @@ class Homepage extends Component {
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.topDis = this.discardPile[this.discardPile.length - 1]._number;
     this.topDis = this.initDis(this.topDis);
+    this.playerNums = this.showPlayerNumbers();
+
     this.phaseStr = this.playerArr[this.currentPlayer]._phase;
     this.boardStr = this.playerBoards();
     this.indexArray = [];
@@ -346,7 +363,24 @@ class Homepage extends Component {
         }
       }
 
-        let printStr = "Congratulations!! " + this.playerArr[playerHolder[0]].name + " is our official winner!!";
+      let nameStr = '';
+      if (phaze2Cnt > 0){
+        let lowestScore = this.playerArr[playerHolder[0]].points;
+        let lowestScoreIndex = 0;
+        for (let i = 0; i < playerHolder.length; i++)
+        {
+          if (this.playerArr[i].points < lowestScore){
+            lowestScore = this.playerArr[i].points;
+            lowestScoreIndex = i;
+          }
+        }
+        nameStr = this.playerArr[lowestScoreIndex].name;
+      }
+      else{
+        nameStr = this.playerArr[playerHolder[0]].name;
+      }
+
+        let printStr = "Congratulations!! " + nameStr + " is our official winner!!";
         alert(printStr);
 
         let printStr2 = "Final Scoreboard: \n";
@@ -401,6 +435,7 @@ class Homepage extends Component {
       this.topDis = this.discardPile[this.discardPile.length - 1]._number;
       this.topDis = this.initDis(this.topDis);
       this.phaseStr = this.playerArr[this.currentPlayer]._phase;
+      this.playerNums = this.showPlayerNumbers();
       this.boardStr = this.playerBoards();
       this.indexArray = [];
 
@@ -575,6 +610,7 @@ class Homepage extends Component {
     this.handStr = 0;
     this.nextQuestion = 0;
     this.boardStr = 0; // string to hold player boards
+    this.playerNums = "";
     this.discardQuestion = 0;
     this.phaseStr = 0;
     this.indexArray = [];
@@ -631,6 +667,7 @@ class Homepage extends Component {
     this.handStr = this.playerArr[this.currentPlayer].showHand();
     this.topDis = this.discardPile[this.discardPile.length - 1]._number;
     this.topDis = this.initDis(this.topDis);
+    this.playerNums = this.showPlayerNumbers();
     this.phaseStr = this.playerArr[this.currentPlayer]._phase;
     this.boardStr = this.playerBoards();
     this.openModal2Handler(); // opening next modal
@@ -1012,11 +1049,7 @@ class Homepage extends Component {
 
                   <text>
                     <text className="text"> Enter the player number you wish to discard your cards on </text>
-                    <text className="text"> {this.state.p1} = 1, </text>
-
-                    <text className="text"> {this.state.p2} = 2, </text>
-
-                    <text className="text"> {this.state.p3} = 3. </text>
+                    <text className="text"> {this.playerNums} </text>
 
                     <input type="number" min="1" max="3" name="discardname" ref="discardname" style={{ width: "100px" }} />
                     <button onClick={this.discardnameHandler}> Submit </button>
