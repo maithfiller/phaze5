@@ -290,7 +290,7 @@ class Homepage extends Component {
 
         let printStr = "Congratulations!! " + this.playerArr[playerHolder[0]].name + " is our official winner!!";
         alert(printStr);
-        
+
         let printStr2 = "Final Scoreboard: \n";
         for (let k = 0; k < this.playerArr.length; k++) {
           let m = k + 1;
@@ -484,9 +484,9 @@ class Homepage extends Component {
       p1: '',
       p2: '',
       p3: '',
-      //p4: '',
-      //p5: '',
-      //p6: '',
+      p4: '',
+      p5: '',
+      p6: '',
       isShowing: false,
       thepickups: '',
       thediscardmove: '',
@@ -531,11 +531,24 @@ class Homepage extends Component {
     // updating the state of the number of players and each players username
   }
 
-  playGameHandler = event => {
-    event.preventDefault();
-    this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value, p3: this.refs.user3.value });
-    //p2: this.refs.user2.value, p3: this.refs.user3.value,
-    //  p4: this.refs.user4.value, p5: this.refs.user5.value, p6: this.refs.user6.value
+  playerFormHandler2 = event => {
+    this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value});
+  }
+
+  playerFormHandler3 = event => {
+    this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value, p3: this.refs.user3.value});
+  }
+
+  playerFormHandler4 = event => {
+    this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value,mp3: this.refs.user3.value, p4: this.refs.user4.value});
+  }
+
+  playerFormHandler5 = event => {
+    this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value,mp3: this.refs.user3.value, p4: this.refs.user4.value, p5: this.refs.user5.value});
+  }
+
+  playerFormHandler6 = event => {
+    this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value,mp3: this.refs.user3.value, p4: this.refs.user4.value, p5: this.refs.user5.value, p6: this.refs.user6.value});
   }
 
   openModalHandler = () => {
@@ -712,19 +725,13 @@ class Homepage extends Component {
             show={this.state.isShowing}
             close={this.closeModalHandler}>
 
-            <form onSubmit={this.submitFormHandler}>
+
               <div>
                 <text className="text">How many players: </text>
-                <input type="number" min="3" max="3" name="players" ref="players" style={{ width: "250px" }} />
-                <button> Submit </button>
+                <input type="number" min="2" max="6" name="players" ref="players" style={{ width: "250px" }} />
+                <button onClick={this.submitFormHandler}> Submit </button>
               </div>
 
-              {this.state.numplayers === '1' &&
-                <div>
-                  <text>Player #1 Username: </text>
-                  <input type="text" name="user1" ref="user1" style={{ width: "205px" }} />
-                </div>
-              }
 
               {this.state.numplayers === '2' &&
                 <div>
@@ -733,6 +740,7 @@ class Homepage extends Component {
                   <br></br>
                   <text>Player #2 Username: </text>
                   <input type="text" name="user2" ref="user2" style={{ width: "205px" }} />
+                  <button onClick={this.playerFormHandler2}> Submit </button>
                 </div>
               }
 
@@ -747,6 +755,7 @@ class Homepage extends Component {
                   <br></br>
                   <text>Player #3 Username: </text>
                   <input type="text" name="user3" ref="user3" style={{ width: "205px" }} />
+                  <button onClick={this.playerFormHandler3}> Submit </button>
                 </div>
               }
 
@@ -764,6 +773,7 @@ class Homepage extends Component {
                   <br></br>
                   <text>Player #4 Username: </text>
                   <input type="text" name="user4" ref="user4" style={{ width: "205px" }} />
+                  <button onClick={this.playerFormHandler4}> Submit </button>
                 </div>
               }
 
@@ -783,6 +793,7 @@ class Homepage extends Component {
                   <br></br>
                   <text>Player #5 Username: </text>
                   <input type="text" name="user5" ref="user5" style={{ width: "205px" }} />
+                  <button onClick={this.playerFormHandler5}> Submit </button>
                 </div>
               }
 
@@ -805,10 +816,11 @@ class Homepage extends Component {
                   <br></br>
                   <text>Player #6 Username: </text>
                   <input type="text" name="user6" ref="user6" style={{ width: "205px" }} />
+                  <button onClick={this.playerFormHandler6}> Submit </button>
                 </div>
               }
 
-            </form>
+
 
           </Modal1>
           {/*}<button className="open-modal-btn" onClick={this.openModal2Handler}>PickUpModal</button>*/}
