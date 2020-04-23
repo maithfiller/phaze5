@@ -625,7 +625,6 @@ class Homepage extends Component {
     this.setState({
       isShowing: false
     });
-    this.setState({ p1: this.refs.user1.value, p2: this.refs.user2.value, p3: this.refs.user3.value });
 
     this.setPlayers();
     this.setGameInfo();
